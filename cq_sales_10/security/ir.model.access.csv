@@ -1,0 +1,6 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"sale.access_product_uom_categ_sale_manager","product.uom.categ salemanager","product.model_product_uom_categ","sales_team.group_sale_manager",1,0,0,0
+"sale.access_product_uom_sale_manager","product.uom salemanager","product.model_product_uom","sales_team.group_sale_manager",1,0,0,0
+"sale.access_product_category_sale_manager","product.category salemanager","product.model_product_category","sales_team.group_sale_manager",1,0,0,0
+"sale.access_product_pricelist_sale_manager","product.pricelist salemanager","product.model_product_pricelist","sales_team.group_sale_manager",1,0,0,0
+"sale.access_product_pricelist_item_sale_manager","product.pricelist.item salemanager","product.model_product_pricelist_item","sales_team.group_sale_manager",1,0,0,0

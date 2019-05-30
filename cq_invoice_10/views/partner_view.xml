@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<openerp>
+  <data>
+
+    <record id="view_partner_property_form_default_bank" model="ir.ui.view">
+        <field name="name">partner.property.form.default.bank</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="cq_anacli_10.res_partner_inherit_anacli"/>
+        <field name="arch" type="xml">
+            <field name="credit_limit" position="after">
+                <field name="default_bank_account_payment"
+                    domain="[('company_id', '=', company_id), ('partner_id.ref_company_ids', 'in', company_id)]"/>
+            </field>
+        </field>
+    </record>
+
+  </data>
+</openerp>

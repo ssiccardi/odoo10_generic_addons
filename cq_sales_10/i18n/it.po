@@ -1,0 +1,340 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * sale
+# * cq_sales_10
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-29 12:52+0000\n"
+"PO-Revision-Date: 2017-08-29 12:52+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: cq_sales_10
+#: model:ir.model.fields,field_description:cq_sales_10.field_sale_order_line_delivery_date
+msgid "Delivery Date"
+msgstr "Data richiesta"
+
+#. module: sale
+#: model:ir.model.fields,help:sale.field_sale_order_confirmation_date
+msgid "Date on which the sale order is confirmed."
+msgstr "Data in cui il preventivo è stato confermato"
+
+#. module: cq_sales_10
+#: model:ir.model.fields,field_description:cq_sales_10.field_sale_order_sale_sequence
+msgid "Sale sequence"
+msgstr "Sequenza"
+
+#. module: sale
+#: model:ir.model.fields,field_description:sale.field_sale_order_amount_untaxed
+msgid "Untaxed Amount"
+msgstr "Totale Imposte Escluse"
+
+#. module: cq_sales_10
+#: model:ir.ui.menu,name:cq_sales_10.prod_config_main_sale
+msgid "Products"
+msgstr "Prodotti"
+
+#. module: cq_sales_10
+#: model:ir.ui.menu,name:cq_sales_10.menu_attribute_action_sale
+msgid "Attributes"
+msgstr "Attributi"
+
+#. module: cq_sales_10
+#: model:ir.ui.menu,name:cq_sales_10.menu_variants_action_sale
+msgid "Attribute Values"
+msgstr "Valori Attributi"
+
+#. module: cq_sales_10
+#: model:ir.ui.menu,name:cq_sales_10.menu_product_category_action_form_sale
+msgid "Product Categories"
+msgstr "Categorie Prodotti"
+
+#. module: cq_sales_10
+#: model:ir.ui.menu,name:cq_sales_10.menu_product_uom_form_action_sale
+msgid "Units of Measure"
+msgstr "Unità di Misura"
+
+#. module: cq_sales_10
+#: model:ir.ui.menu,name:cq_sales_10.menu_product_uom_categ_form_action_sale
+msgid "Unit of Measure Categories"
+msgstr "Categorie Unità di Misura"
+
+#. module: cq_sales_10
+#: model:ir.ui.menu,name:cq_sales_10.menu_config_address_book_sale
+msgid "Contacts"
+msgstr "Contatti"
+
+#. module: cq_sales_10
+#: model:ir.ui.menu,name:cq_sales_10.menu_partner_category_form_sale
+msgid "Contact Tags"
+msgstr "Tag Contatti"
+
+#. module: sales_team
+#: model:ir.ui.menu,name:sales_team.menu_partner_category_form
+msgid "Contact Tags"
+msgstr "Tag Contatti"
+
+#. module: cq_sales_10
+#: model:ir.ui.menu,name:cq_sales_10.menu_partner_title_contact_sale
+msgid "Contact Titles"
+msgstr "Qualifiche Contatti"
+
+#. module: cq_sales_10
+#: model:ir.ui.menu,name:cq_sales_10.menu_localisation_sale
+msgid "Localization"
+msgstr "Localizzazione"
+
+#. module: cq_sales_10
+#: model:ir.ui.menu,name:cq_sales_10.menu_country_partner_sale
+msgid "Countries"
+msgstr "Nazioni"
+
+#. module: cq_sales_10
+#: model:ir.ui.menu,name:cq_sales_10.menu_country_group_sale
+msgid "Country Group"
+msgstr "Raggruppamenti di Paesi"
+
+#. module: cq_sales_10
+#: model:ir.ui.menu,name:cq_sales_10.menu_country_state_partner_sale
+msgid "Fed. States"
+msgstr "Stati Federali"
+
+#. module: cq_sales_10
+#: model:ir.ui.menu,name:cq_sales_10.menu_action_currency_form_sale
+msgid "Currencies"
+msgstr "Valute"
+
+#. module: cq_sales_10
+#: model:ir.ui.menu,name:cq_sales_10.menu_action_res_partner_bank_form_sale
+#: model:ir.ui.menu,name:cq_sales_10.menu_config_bank_accounts_sale
+msgid "Bank Accounts"
+msgstr "Conti Bancari"
+
+#. module: cq_sales_10
+#: model:ir.ui.menu,name:cq_sales_10.menu_action_res_bank_form_sale
+msgid "Banks"
+msgstr "Banche"
+
+#. module: sale
+#: model:mail.template,body_html:sale.email_template_edi_sale
+msgid "\n"
+"<p>Dear ${object.partner_id.name}\n"
+"% set access_action = object.with_context(force_website=True).get_access_action()\n"
+"% set doc_name = 'quotation' if object.state in ('draft', 'sent') else 'order confirmation'\n"
+"% set is_online = access_action and access_action['type'] == 'ir.actions.act_url'\n"
+"% set access_name = is_online and object.template_id and doc_name == 'quotation' and 'Accept and pay %s online' % doc_name or 'View %s' % doc_name\n"
+"% set access_url = is_online and access_action['url'] or None\n"
+"\n"
+"% if object.partner_id.parent_id:\n"
+"    (<i>${object.partner_id.parent_id.name}</i>)\n"
+"% endif\n"
+",</p>\n"
+"<p>\n"
+"Here is your ${doc_name} <strong>${object.name}</strong>\n"
+"% if object.origin:\n"
+"(with reference: ${object.origin} )\n"
+"% endif\n"
+"amounting in <strong>${object.amount_total} ${object.pricelist_id.currency_id.name}</strong>\n"
+"from ${object.company_id.name}.\n"
+"</p>\n"
+"\n"
+"    <br/><br/>\n"
+"% if is_online:\n"
+"    <center>\n"
+"        <a href=\"${access_url}\" style=\"background-color: #1abc9c; padding: 20px; text-decoration: none; color: #fff; border-radius: 5px; font-size: 16px;\" class=\"o_default_snippet_text\">${access_name}</a>\n"
+"        <br/><br/>\n"
+"        <span style=\"color:#888888\">(or view attached PDF)</span>\n"
+"    </center>\n"
+"    <br/>\n"
+"% endif\n"
+"\n"
+"<p>You can reply to this email if you have any questions.</p>\n"
+"<p>Thank you,</p>\n"
+"\n"
+"<p style=\"color:#eeeeee;\">\n"
+"% if object.user_id and object.user_id.signature:\n"
+"    ${object.user_id.signature | safe}\n"
+"% endif\n"
+"</p>\n"
+""
+msgstr "\n"
+"<p>Gentile ${object.partner_id.name}\n"
+"% set access_action = object.with_context(force_website=True).get_access_action()\n"
+"% set doc_name = 'preventivo' if object.state in ('draft', 'sent') else 'ordine'\n"
+"% set is_online = access_action and access_action['type'] == 'ir.actions.act_url'\n"
+"% set access_name = is_online and object.template_id and doc_name == 'preventivo' and 'Accetta e paga %s online' % doc_name or 'Visualizza %s' % doc_name\n"
+"% set access_url = is_online and access_action['url'] or None\n"
+"\n"
+"% if object.partner_id.parent_id:\n"
+"    (<i>${object.partner_id.parent_id.name}</i>)\n"
+"% endif\n"
+",</p>\n"
+"<p>\n"
+"In allegato il Suo ${doc_name} <strong>${object.name}</strong> per ${object.company_id.name}.\n"
+"<p style=\"border-left: 1px solid #8e0000; margin-left: 30px;\">\n"
+"      &nbsp; <strong>RIFERIMENTI</strong><br>\n"
+"      &nbsp; Numero: <strong>${object.name}</strong><br>\n"
+"      &nbsp; Totale: <strong>${object.amount_total} ${object.pricelist_id.currency_id.name}</strong><br>\n"
+"      &nbsp; Data:  ${format_tz(object.date_order, tz=user.tz, context={'lang':object.partner_id.lang})} <br>\n"
+"      % if object.origin:\n"
+"      &nbsp; Riferimento: ${object.origin}<br>\n"
+"      % endif\n"
+"      % if object.client_order_ref:\n"
+"      &nbsp; Vostro Riferimento: ${object.client_order_ref}<br>\n"
+"      % endif\n"
+"      % if object.user_id:\n"
+"      &nbsp; Contatto diretto: <a href=\"mailto:${object.user_id.email or ''}?subject=Ordine%20${object.name}\">${object.user_id.name}</a>\n"
+"      % endif\n"
+"</p>\n"
+"<br/>\n"
+"% if is_online:\n"
+"    <center>\n"
+"        <a href=\"${access_url}\" style=\"background-color: #1abc9c; padding: 20px; text-decoration: none; color: #fff; border-radius: 5px; font-size: 16px;\" class=\"o_default_snippet_text\">${access_name}</a>\n"
+"        <br/><br/>\n"
+"        <span style=\"color:#888888\">(o visualizza PDF allegato)</span>\n"
+"    </center>\n"
+"    <br/>\n"
+"% endif\n"
+"\n"
+"<p>Per qualsiasi richiesta non esitate a contattarci.</p>\n"
+"<p>Cordiali Saluti,</p>\n"
+"\n"
+"<p style=\"color:#eeeeee;\">\n"
+"% if object.user_id and object.user_id.signature:\n"
+"    ${object.user_id.signature | safe}\n"
+"% endif\n"
+"<br/>\n"
+"</p>\n"
+
+#. module: sale
+#: model:mail.template,report_name:sale.email_template_edi_sale
+msgid "${(object.name or '').replace('/','_')}${object.state == 'draft' and '_draft' or ''}"
+msgstr "${(object.name or '').replace('/','_')}"
+
+#. module: sale
+#: model:ir.model.fields,field_description:sale.field_product_pricelist_discount_policy
+msgid "Discount policy"
+msgstr "Politica di sconto"
+
+#. module: sale
+#: selection:product.pricelist,discount_policy:0
+msgid "Show public price & discount to the customer"
+msgstr "Mostra prezzo pubblico e sconto al cliente"
+
+#. module: cq_sales_10
+#: model:ir.ui.view,arch_db:cq_sales_10.sale_order_search_quotation_cq_sales
+msgid "Cancelled"
+msgstr "Annullati"
+
+#. module: cq_sales_10
+#: model:ir.ui.view,arch_db:cq_sales_10.sale_order_search_sale_cq_sales
+msgid "Sales"
+msgstr "Ordini di Vendita"
+
+#. module: cq_sales_10
+#: model:ir.ui.view,arch_db:cq_sales_10.sale_order_search_sale_cq_sales
+msgid "Locked"
+msgstr "Bloccati"
+
+#. module: cq_sales_10
+#: code:addons/cq_sales_10/models/sale.py:32
+#, python-format
+msgid "You cannot confirm an empty sale order."
+msgstr "Non puoi confermare un ordine di vendita vuoto."
+
+#. module: cq_sales_10
+#: model:ir.model.fields,field_description:cq_sales_10.field_sale_order_data_concordata
+msgid "Agreed Delivery Date"
+msgstr "Data Concordata"
+
+#. module: cq_sales_10
+#: model:ir.model.fields,field_description:cq_sales_10.field_sale_order_line_data_concordata
+msgid "Agreed Delivery Date"
+msgstr "Data Concordata"
+
+#. module: cq_sales_10
+#: model:ir.model.fields,field_description:cq_sales_10.field_change_data_concordata_data_concordata
+msgid "Agreed Delivery Date"
+msgstr "Data Concordata"
+
+#. module: cq_sales_10
+#: model:ir.model.fields,field_description:cq_sales_10.field_change_data_concordata_data_concordata
+msgid "Agreed Delivery Date from sale order"
+msgstr "Data Concordata presa dall'ordine di vendita"
+
+#. module: cq_sales_10
+#: model:ir.ui.view,arch_db:cq_sales_10.cq_sales_10_view_order_form
+msgid "Change Agreed Dates"
+msgstr "Cambia date concordate"
+
+#. module: cq_sales_10
+#: model:ir.ui.view,arch_db:cq_sales_10.cq_sales_10_view_order_form
+msgid ""
+"Show a popup where confirming or not to replace all the Agreed Delivery Dates on lines according to that from the order."
+msgstr ""
+"Mostra un popup in cui confermare o meno la sostituzione di tutte le Date Concordate sulle righe con la Data Concordata presa dall'ordine."
+
+#. module: cq_sales_10
+#: model:ir.ui.view,arch_db:cq_sales_10.popup_form_change_data_concordata
+msgid "Confirm"
+msgstr "Conferma"
+
+#. module: cq_sales_10
+#: model:ir.ui.view,arch_db:cq_sales_10.popup_form_change_data_concordata
+msgid "Cancel"
+msgstr "Annulla"
+
+#. module: cq_sales_10
+#: model:ir.ui.view,arch_db:cq_sales_10.popup_form_change_data_concordata
+msgid "Do you want to replace 'Agreed Delivery Dates' on order lines?"
+msgstr "Vuoi sostituire le 'Date Concordate' sulle righe dell'ordine?"
+
+#. module: cq_sales_10
+#: model:ir.ui.view,arch_db:cq_sales_10.popup_form_change_data_concordata
+msgid ""
+"If you click on 'Confirm', each Agreed Delivery Date on order lines"
+"will be replaced with this one taken from the order:"
+msgstr ""
+"Se clicchi su 'Conferma', tutte le Date Concordate sulle righe dell'ordine "
+"saranno sostituite con la seguente data presa dall'ordine:"
+
+#. module: cq_sales_10
+#: model:ir.ui.view,arch_db:cq_sales_10.cq_sales_10_view_order_tree
+#: model:ir.ui.view,arch_db:cq_sales_10.cq_sales_10_inherit_sale_order_2
+msgid "Untaxed Amount"
+msgstr "Totale Imponibile"
+
+#. module: cq_sales_10
+#: model:ir.ui.view,arch_db:cq_sales_10.cq_sales_10_view_order_tree
+#: model:ir.ui.view,arch_db:cq_sales_10.cq_sales_10_inherit_sale_order_2
+msgid "Untaxed"
+msgstr "Imponibile"
+
+#. module: cq_sales_10
+#: model:ir.model.fields,field_description:cq_sales_10.field_sale_order_residual_untaxed
+#: model:ir.ui.view,arch_db:cq_sales_10.cq_sales_10_view_order_tree
+msgid "Untaxed Residual"
+msgstr "Saldo Imponibile"
+
+#. module: cq_sales_10
+#: model:ir.model.fields,help:cq_sales_10.field_sale_order_residual_untaxed
+msgid "Untaxed order amount that is not invoiced yet"
+msgstr "Saldo mancante sull'imponibile dell'ordine che deve ancora essere fatturato"
+
+#. module: cq_sales_10
+#: model:ir.model.fields,field_description:cq_sales_10.field_sale_order_residual_total
+#: model:ir.ui.view,arch_db:cq_sales_10.cq_sales_10_view_order_tree
+msgid "Total Residual"
+msgstr "Saldo Totale"
+
+#. module: cq_sales_10
+#: model:ir.model.fields,help:cq_sales_10.field_sale_order_residual_total
+msgid "Total order amount (including taxes) that is not invoiced yet"
+msgstr "Saldo mancante sul totale dell'ordine (tasse incluse) che deve ancora essere fatturato"

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sales_config_form_partner_children_domain" model="ir.ui.view">
+        <field name="name">sales.config.form.partner.children.domain</field>
+        <field name="model">sale.config.settings</field>
+        <field name="inherit_id" ref="sale.view_sales_config"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='quotations_sales']/field[@name='group_sale_delivery_address']" position="after">
+                <field name="sale_order_partner_domain" widget="radio"/>
+                <field name="sale_order_show_residual" widget="radio"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

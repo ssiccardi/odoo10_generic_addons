@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="1">
+        <!-- aggiunta alle ragioni di perdita della lead/opportunità -->
+        <record id="lost_reason_4" model="crm.lost.reason">
+            <field name="name">Other</field>
+        </record>
+    </data>
+
+</odoo>

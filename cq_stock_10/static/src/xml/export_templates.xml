@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="template" xml:space="preserve">
+
+<t t-name="AddExportViewMainMargini">
+    <div class="btn-group o_dropdown">
+        <button class="o_dropdown_toggler_btn btn btn-sm dropdown-toggle" data-toggle="dropdown">Esporta Margini</button>
+        <ul class="dropdown-menu" role="menu">
+            <li class="o_sidebar_export_margini_xls">
+                <a>Prodotti</a>
+            </li>
+            <li class="o_sidebar_export_margini_xls_lots">
+                <a>Lotti</a>
+            </li>
+        </ul>
+    </div>
+</t>
+
+<t t-name="AddExportStockHistory">
+    <div class="btn-group o_dropdown">
+        <button class="o_dropdown_toggler_btn btn btn-sm dropdown-toggle" data-toggle="dropdown">Esporta Inventario</button>
+        <ul class="dropdown-menu" role="menu">
+            <li class="o_sidebar_stock_history_xls">
+                <a>Prodotti</a>
+            </li>
+            <li class="o_sidebar_stock_history_xls_lots">
+                <a>Lotti</a>
+            </li>
+        </ul>
+    </div>
+</t>
+
+</templates>

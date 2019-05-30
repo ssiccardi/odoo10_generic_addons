@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- PRVENTIVI / ORDINI ACQUISTO -->
+        <record id="purchase_order_form_cq" model="ir.ui.view">
+            <field name="name">purchase.order.form.cq</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <field name="date_approve" position="attributes" >
+                     <attribute name="groups">base.group_user</attribute>
+                     <attribute name="attrs">{'invisible':[('state','not in',['purchase','done'])]}</attribute>
+                </field>
+                <!-- bottone Prodotti in Entrata: ridondante perche c'è già bottone Spedizioni -->
+                <xpath expr="/form/header/button[@name='action_view_picking']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="purchase_order_tree_cq" model="ir.ui.view">
+            <field name="name">purchase.order.tree.cq</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+            <field name="arch" type="xml">
+                <field name="amount_untaxed" position="after">
+                    <field name="residual_untaxed" sum="Untaxed Residual"
+                        widget="monetary"/>
+                </field>
+                <field name="amount_total" position="after">
+                    <field name="residual_total" sum="Total Residual"
+                        widget="monetary" invisible="1"/>
+                </field>
+            </field>
+        </record>
+
+
+
+<!-- LISTINI FORNITORI -->
+        <record id="product_supplierinfo_form_view_cq" model="ir.ui.view">
+            <field name="name">product.supplierinfo.form.view.cq</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="inherit_id" ref="product.product_supplierinfo_form_view"/>
+            <field name="arch" type="xml">
+                 <field name="product_tmpl_id" position="after">
+                    <field name="product_id"
+                           domain="[('product_tmpl_id','=',product_tmpl_id)]"
+                           invisible="context.get('invisible_product_id', False)"
+                           groups="product.group_product_variant"/>
+                 </field>
+            </field>
+        </record>
+        
+        <record id="product_supplierinfo_tree_view_cq" model="ir.ui.view">
+            <field name="name">product.supplierinfo.tree.view.cq</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="product_tmpl_id" position="after">
+                    <field name="product_id" invisible="context.get('invisible_product_id', False)" groups="product.group_product_variant"/>
+                </field>
+            </field>
+        </record>
+
+</odoo>

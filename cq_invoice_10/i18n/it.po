@@ -1,0 +1,330 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* cq_invoice_10
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-12-04 16:11+0000\n"
+"PO-Revision-Date: 2017-12-04 16:11+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: cq_invoice_10
+#: model:ir.model.fields,field_description:cq_invoice_10.field_account_fiscal_position_inv_journal
+msgid "Account Journal"
+msgstr "Sezionale Contabile"
+
+#. module: cq_invoice_10
+#: model:ir.model.fields,field_description:cq_invoice_10.field_account_invoice_line_end_accounting
+msgid "Accounting End Date"
+msgstr "Fine competenza"
+
+#. module: cq_invoice_10
+#: model:ir.model.fields,field_description:cq_invoice_10.field_account_invoice_line_start_accounting
+msgid "Accounting Start Date"
+msgstr "Inizio competenza"
+
+#. module: cq_invoice_10
+#: model:ir.ui.view,arch_db:cq_invoice_10.account_invoice_inherit_anacli1
+#: model:ir.ui.view,arch_db:cq_invoice_10.account_invoice_inherit_anacli2
+msgid "Aliquota IVA"
+msgstr "Aliquota IVA"
+
+#. module: cq_invoice_10
+#: model:ir.model.fields,field_description:cq_invoice_10.field_fatture_fornitori_subtotale
+msgid "Amount Untaxed"
+msgstr "Imponibile"
+
+#. module: cq_invoice_10
+#: model:ir.model,name:cq_invoice_10.model_res_partner_bank
+msgid "Bank Accounts"
+msgstr "Conti Bancari"
+
+#. module: cq_invoice_10
+#: model:ir.ui.view,arch_db:cq_invoice_10.account_invoice_inherit_anacli1
+#: model:ir.ui.view,arch_db:cq_invoice_10.account_invoice_inherit_anacli2
+msgid "Cancel bill number"
+msgstr "Cancella il numero fattura"
+
+#. module: cq_invoice_10
+#: model:ir.ui.view,arch_db:cq_invoice_10.account_invoice_inherit_anacli5
+msgid "Cancel invoice number?"
+msgstr "Cancellare il numero interno?"
+
+#. module: cq_invoice_10
+#: model:ir.ui.view,arch_db:cq_invoice_10.account_invoice_inherit_anacli1
+#: model:ir.ui.view,arch_db:cq_invoice_10.account_invoice_inherit_anacli2
+msgid "Cancella il numero interno"
+msgstr "Cancella il numero interno"
+
+#. module: cq_invoice_10
+#: model:ir.actions.act_window,help:cq_invoice_10.action_refund_tree1
+msgid "Click to create a customer refund."
+msgstr "Fai click per creare una nuova nota di credito cliente."
+
+#. module: cq_invoice_10
+#: model:ir.actions.act_window,help:cq_invoice_10.action_refund_tree2
+msgid "Click to record a new vendor refund."
+msgstr "Fai click per creare una nuova nota di credito fornitore."
+
+#. module: cq_invoice_10
+#: model:ir.ui.view,arch_db:cq_invoice_10.account_invoice_inherit_anacli2
+msgid "Conti IVA"
+msgstr "Conti IVA"
+
+#. module: cq_invoice_10
+#: model:ir.model.fields,field_description:cq_invoice_10.field_fatture_fornitori_create_uid
+msgid "Created by"
+msgstr "Creato da"
+
+#. module: cq_invoice_10
+#: model:ir.model.fields,field_description:cq_invoice_10.field_fatture_fornitori_create_date
+msgid "Created on"
+msgstr "Creato il"
+
+#. module: cq_invoice_10
+#: model:ir.actions.act_window,name:cq_invoice_10.action_refund_tree1
+#: model:ir.ui.menu,name:cq_invoice_10.menu_action_refund_tree1
+msgid "Customer Refunds"
+msgstr "Note di credito cliente"
+
+#. module: cq_invoice_10
+#: model:ir.model.fields,field_description:cq_invoice_10.field_res_partner_bank_default_bank
+msgid "Default bank account"
+msgstr "Conto bancario di default"
+
+#. module: cq_invoice_10
+#: model:ir.model.fields,field_description:cq_invoice_10.field_res_partner_default_bank_account_payment
+#: model:ir.model.fields,field_description:cq_invoice_10.field_res_users_default_bank_account_payment
+msgid "Default company bank account"
+msgstr "Conto bancario per ricezione pagamenti"
+
+#. module: cq_invoice_10
+#: model:ir.model.fields,field_description:cq_invoice_10.field_fatture_fornitori_display_name
+msgid "Display Name"
+msgstr "Nome Visualizzato"
+
+#. module: cq_invoice_10
+#: model:ir.ui.view,arch_db:cq_invoice_10.account_invoice_inherit_anacli5
+msgid "Do you really want to cancel this number?"
+msgstr "Cancellare il numero della fattura?"
+
+#. module: cq_invoice_10
+#: model:ir.model.fields,field_description:cq_invoice_10.field_fatture_fornitori_data_scad
+msgid "Due Date"
+msgstr "Data scadenza"
+
+#. module: cq_invoice_10
+#: model:ir.ui.view,arch_db:cq_invoice_10.account_invoice_inherit_anacli5
+msgid "Esegui"
+msgstr "Esegui"
+
+#. module: cq_invoice_10
+#: model:ir.model,name:cq_invoice_10.model_account_fiscal_position
+msgid "Fiscal Position"
+msgstr "Posizione Fiscale"
+
+#. module: cq_invoice_10
+#: model:ir.model.fields,field_description:cq_invoice_10.field_fatture_fornitori_id
+msgid "ID"
+msgstr "ID"
+
+#. module: cq_invoice_10
+#: model:ir.model.fields,field_description:cq_invoice_10.field_fatture_fornitori_num_interno
+msgid "Internal Reference"
+msgstr "Riferimento interno"
+
+#. module: cq_invoice_10
+#: model:ir.model,name:cq_invoice_10.model_account_invoice
+msgid "Invoice"
+msgstr "Fattura"
+
+#. module: cq_invoice_10
+#: model:ir.model.fields,field_description:cq_invoice_10.field_fatture_fornitori_data_fatt
+msgid "Invoice Date"
+msgstr "Data fattura"
+
+#. module: cq_invoice_10
+#: model:ir.model,name:cq_invoice_10.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Riga Fattura"
+
+#. module: cq_invoice_10
+#: code:addons/cq_invoice_10/models/account.py:237
+#, python-format
+msgid "It is not possible to validate an invoice with an earlier date than that of the last validated invoice"
+msgstr "Non è possibile validare una fattura con una data antecedente la data dell'ultima fattura validata"
+
+#. module: cq_invoice_10
+#: model:ir.model.fields,help:cq_invoice_10.field_account_invoice_registration_date
+msgid "Keep empty to use the current date"
+msgstr "Lasciare vuoto per utilizzare la data corrente"
+
+#. module: cq_invoice_10
+#: model:ir.model.fields,field_description:cq_invoice_10.field_fatture_fornitori___last_update
+msgid "Last Modified on"
+msgstr "Ultima modifica il"
+
+#. module: cq_invoice_10
+#: model:ir.model.fields,field_description:cq_invoice_10.field_fatture_fornitori_write_uid
+msgid "Last Updated by"
+msgstr "Ultima modifica di"
+
+#. module: cq_invoice_10
+#: model:ir.model.fields,field_description:cq_invoice_10.field_fatture_fornitori_write_date
+msgid "Last Updated on"
+msgstr "Ultima modifica il"
+
+#. module: cq_invoice_10
+#: code:addons/cq_invoice_10/models/account.py:42
+#, python-format
+msgid "Lines with an amount must have a tax code"
+msgstr "Le righe valorizzate devono avere un'aliquota iva"
+
+#. module: cq_invoice_10
+#: model:ir.model.fields,field_description:cq_invoice_10.field_account_journal_no_tax_check
+msgid "No Tax Check"
+msgstr "Escludi dal controllo su aliquota IVA"
+
+#. module: cq_invoice_10
+#: model:ir.model,name:cq_invoice_10.model_res_partner
+msgid "Partner"
+msgstr "Partner"
+
+#. module: cq_invoice_10
+#: model:ir.model.fields,field_description:cq_invoice_10.field_account_invoice_payed_date
+msgid "Payment Date"
+msgstr "Data pagamento"
+
+#. module: cq_invoice_10
+#: code:addons/cq_invoice_10/models/account.py:200
+#, python-format
+msgid "Previous Invoices"
+msgstr "Fatture Precedenti"
+
+#. module: cq_invoice_10
+#: model:ir.model.fields,field_description:cq_invoice_10.field_account_invoice_n_proforma
+msgid "Proforma Number"
+msgstr "Numero Proforma"
+
+#. module: cq_invoice_10
+#: code:addons/cq_invoice_10/models/account.py:147
+#: model:ir.model.fields,field_description:cq_invoice_10.field_account_invoice_is_refunds
+#, python-format
+msgid "Refund"
+msgstr "Rimborso"
+
+#. module: cq_invoice_10
+#: model:ir.model.fields,field_description:cq_invoice_10.field_account_invoice_registration_date
+#: model:ir.model.fields,field_description:cq_invoice_10.field_fatture_fornitori_data_reg
+msgid "Registration Date"
+msgstr "Data di registrazione"
+
+#. module: cq_invoice_10
+#: model:ir.model.fields,field_description:cq_invoice_10.field_fatture_fornitori_saldo
+msgid "Residual Amount"
+msgstr "Importo rimanente"
+
+#. module: cq_invoice_10
+#: model:ir.ui.view,arch_db:cq_invoice_10.account_invoice_inherit_anacli1
+msgid "Storico fatture fornitore"
+msgstr "Storico fatture fornitore"
+
+#. module: cq_invoice_10
+#: model:ir.model,name:cq_invoice_10.model_fatture_fornitori
+msgid "Summary of previous invoices of the supplier"
+msgstr "Riepilogo delle precedenti fatture del fornitore"
+
+#. module: cq_invoice_10
+#: model:ir.model.fields,field_description:cq_invoice_10.field_fatture_fornitori_part_id
+msgid "Supplier"
+msgstr "Fornitore"
+
+#. module: cq_invoice_10
+#: model:ir.model.fields,field_description:cq_invoice_10.field_fatture_fornitori_num_esterno
+msgid "Supplier Reference"
+msgstr "Riferimento Fornitore"
+
+#. module: cq_invoice_10
+#: model:ir.model.fields,help:cq_invoice_10.field_res_partner_default_bank_account_payment
+#: model:ir.model.fields,help:cq_invoice_10.field_res_users_default_bank_account_payment
+msgid "The default company bank account that will receive payments from this customer"
+msgstr "Conto bancario predefinito su cui l'azienda riceve i pagamenti da questo cliente"
+
+#. module: cq_invoice_10
+#: code:addons/cq_invoice_10/models/account.py:243
+#, python-format
+msgid "Accounting Date (%s) can't be earlier than Invoice Date (%s)."
+msgstr "La Data Contabile (%s) non puo' essere anteriore alla Data Fattura (%s)."
+
+#. module: cq_invoice_10
+#: model:ir.ui.view,arch_db:cq_invoice_10.account_invoice_inherit_anacli5
+msgid "The selected invoice/refund has this number:"
+msgstr "La fattura/nota di credito ha questo numero:"
+
+#. module: cq_invoice_10
+#: code:addons/cq_invoice_10/models/account.py:138
+#, python-format
+msgid "This invoice hasn't an invoice number."
+msgstr "La fattura/nota di credito selezionata non ha numero di fattura."
+
+#. module: cq_invoice_10
+#: model:ir.model.fields,field_description:cq_invoice_10.field_fatture_fornitori_totale
+msgid "Total Amount"
+msgstr "Totale"
+
+#. module: cq_invoice_10
+#: model:ir.model.fields,help:cq_invoice_10.field_res_partner_bank_default_bank
+msgid "Use this bank account as default one on invoices"
+msgstr "Usa questo conto bancario come default per le fatture"
+
+#. module: cq_invoice_10
+#: model:ir.model.fields,field_description:cq_invoice_10.field_fatture_fornitori_user_id
+msgid "User"
+msgstr "Utente"
+
+#. module: cq_invoice_10
+#: model:ir.actions.act_window,name:cq_invoice_10.action_refund_tree2
+#: model:ir.ui.menu,name:cq_invoice_10.menu_action_refund_tree2
+msgid "Vendor Refunds"
+msgstr "Note di credito fornitore"
+
+#. module: cq_invoice_10
+#: model:ir.ui.view,arch_db:cq_invoice_10.account_invoice_inherit_anacli5
+msgid "Write down this number and remember to update the counter after having cancelled this number."
+msgstr "Segnati il numero e ricorda di aggiornare la sequenza dopo aver eliminato questo numero."
+
+#. module: cq_invoice_10
+#: code:addons/cq_invoice_10/models/account.py:120
+#, python-format
+msgid "You can erase the internal number only for draft or canceled invoices."
+msgstr "Si puo' cancellare il numero solo alle fatture bozza o annullate"
+
+#. module: cq_invoice_10
+#: model:ir.ui.view,arch_db:cq_invoice_10.account_invoice_inherit_anacli5
+msgid "_Close"
+msgstr "_Chiudi"
+
+#. module: cq_invoice_10
+#: model:ir.ui.view,arch_db:cq_invoice_10.account_invoice_inherit_anacli3
+#: model:ir.ui.view,arch_db:cq_invoice_10.account_invoice_inherit_anacli4
+msgid "Amount Due"
+msgstr "Importo a saldo"
+
+#. module: cq_invoice_10
+#: model:ir.ui.view,arch_db:cq_invoice_10.account_invoice_inherit_anacli3
+#: model:ir.ui.view,arch_db:cq_invoice_10.account_invoice_inherit_anacli4
+msgid "Untaxed Total"
+msgstr "Totale Imponibile"
+
+#. module: cq_invoice_10
+#: model:ir.ui.view,arch_db:cq_invoice_10.account_invoice_inherit_anacli3
+#: model:ir.ui.view,arch_db:cq_invoice_10.account_invoice_inherit_anacli4
+msgid "Total"
+msgstr "Totale"

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="view_picking_form_return_create_refund" model="ir.ui.view">
+            <field name="name">stock.picking.form.return.create.refund</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form" />
+            <field name="arch" type="xml">
+                <field name="state" position="before">
+                    <field name="sale_id" invisible="1"/>
+                    <field name="is_a_return_picking" invisible="1"/>
+                    <button name="create_out_refund" type="object" attrs="{'invisible':['|',('is_a_return_picking','!=',True),('sale_id','=',False)]}" 
+                            string="Nota di Credito Cliente"/>
+                </field>
+            </field>
+        </record>
+
+</odoo>

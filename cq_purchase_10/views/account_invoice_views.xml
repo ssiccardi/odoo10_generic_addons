@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_invoice_supplier_purchase_form_cq" model="ir.ui.view">
+        <field name="name">account.invoice.supplier.purchase.cq</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="purchase.view_invoice_supplier_purchase_form"/>
+        <field name="arch" type="xml">
+            <field name="purchase_id" position="attributes" >
+                <attribute name="attrs">{'invisible': [('state', '!=', 'draft')]}</attribute>
+                <attribute name="domain">[('invoice_status', '=', 'to invoice'),('partner_id', 'child_of', partner_id)]</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

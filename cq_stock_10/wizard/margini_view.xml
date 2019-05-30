@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+        <record id="view_margini_tree" model="ir.ui.view">
+            <field name="name">view_margini_tree</field>
+            <field name="model">stock.quant</field>
+            <!--la tree standard ha priorità 10, in odoo la priorità è vista al contrario (sarebbe come una sequenza ascendente)-->
+            <field eval="100" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Margini Fornitori" create="0" edit="0" delete="0">
+                    <field name='product_id'/>
+                    <field name='lot_id'/>
+                    <field name='data_uscita'/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name='cliente'/>
+                    <field name='fornitore'/>
+                    <field name='qty'/>
+                    <field name='price_out'/>
+                    <field name='price_in'/>
+                    <field name='margine'/> 
+                    <field name='margine_u'/>                                
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_margini_search" model="ir.ui.view">
+            <field name="name">view_margini_search</field>
+            <field name="model">stock.quant</field>
+            <field name="inherit_id" ref="stock.quant_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="/search/group[position() = 2]/filter[position() = 4]" position="replace">
+                   <filter name='lotgroup' string='Lot/Serial Number' context="{'group_by': 'lot_id'}" groups="stock.group_production_lot"/>
+                   <filter name='create_dategroup' string="Periodo" context="{'group_by' : 'data_uscita'}"/>
+                   <filter name='clientegroup' string="Cliente" context="{'group_by' : 'cliente'}"/>
+                   <filter name='fornitoregroup' string="Fornitore" context="{'group_by' : 'fornitore'}"/>                   
+               </xpath>
+            </field>
+        </record>
+                
+        <record id="action_view_margini" model="ir.actions.server">
+            <field name="name">Margini Fornitori</field>
+            <field name="model_id" ref="stock.model_stock_quant"/>
+            <field name="code">
+model.update_records_margini()
+treeview_id = model.env['ir.model.data'].get_object_reference('cq_stock_10', 'view_margini_tree')[1]
+ctx = {'search_default_productgroup':1}
+if model.env.user.has_group('stock.group_production_lot'):
+    ctx.update({'search_default_lotgroup':1})
+action = {
+    "type": "ir.actions.act_window",
+    "name": "Margini Fornitori",
+    "view_type": "form",
+    "view_mode": "tree,form",
+    "res_model": "stock.quant",
+    "view_id": treeview_id,
+    "views": [(treeview_id, 'tree')],    
+    "context": ctx,
+    "domain":[('location_id.usage','=','customer')],
+    }
+            </field>
+        </record>
+               
+        <menuitem action="action_view_margini" id="menu_view_margini" parent="stock.menu_warehouse_report" sequence="1"/>
+         
+    </data>
+</openerp>
+
+
+

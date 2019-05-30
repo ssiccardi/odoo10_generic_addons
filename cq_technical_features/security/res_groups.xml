@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record model="res.groups" id="group_technical_features">
+        <field name="name">Technical Features (w/o debug mode)</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_no_one'))]" />
+    </record>
+
+<!--
+    issue FEDA-77: inibire tasto Importa
+    estratto da modulo https://github.com/OCA/server-tools/tree/10.0/base_import_security_group
+ -->
+    <record id="group_import_csv" model="res.groups">
+        <field name="name">Import CSV/Excel files</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+<!--
+    issue FEDA-77: inibire tasto Esporta
+    estratto da modulo https://github.com/onesteinbv/addons-onestein/tree/10.0/web_disable_export_group
+ -->
+    <record id="group_export_csv" model="res.groups">
+        <field name="name">Export CSV/Excel files</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+</odoo>

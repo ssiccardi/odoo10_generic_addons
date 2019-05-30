@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+<!--  #### PARTE DI VISUALIZZAZIONE #### -->
+
+        <record id="view_qty_lots_tree" model="ir.ui.view">
+            <field name="name">qty.lots.tree</field>
+            <field name="model">av.qty.lots</field>
+            <field name="arch" type="xml">
+                <tree create="0" edit="0" delete="0">
+                    <field name="lot_id"/>
+                    <field name="product_id"/>
+                    <field name="product_qty"/>
+                    <field name="product_uom_id"/>
+                    <field name="production_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_qty_lots_search" model="ir.ui.view">
+            <field name="name">qty.lots.search</field>
+            <field name="model">av.qty.lots</field>
+            <field name="arch" type="xml">
+                <search string="Wizard Internal Move Search">
+                    <field name="product_id" string="Prodotto" />
+                    <field name="lot_id" string="Lotto" groups="stock.group_production_lot"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Prodotto" domain="[]" context="{'group_by':'product_id'}"/>
+                        <filter string="Lotto" domain="[]" context="{'group_by':'lot_id'}" groups="stock.group_production_lot"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="popup_view_qty_lots" model="ir.ui.view">
+            <field name="name">popup.view.qty.lots</field>
+            <field name="model">select.location.internal.move</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="location_id" domain="[('usage','=','internal')]"/>
+                    </group>
+                    <footer>
+                        <button name="visualizza" string="Apri" type="object" default_focus="1" class="oe_highlight"/>
+                        <button string="Chiudi" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+                
+        <record id="view_qty_lots_action" model="ir.actions.server">
+            <field name="name">Esegui Movimenti Interni</field>
+            <field name="model_id" ref="model_av_qty_lots"/>
+            <field name="code">
+    action = {
+        "type": "ir.actions.act_window",
+        "name": "Seleziona Locazione Sorgente",
+        "view_type": "form",
+        "view_mode": "form",
+        "res_model": "select.location.internal.move",
+        "target": "new",
+    }
+            </field>
+        </record>
+        
+        <menuitem action="view_qty_lots_action" id="view_qty_lots_menu" parent="stock.menu_stock_warehouse_mgmt" sequence="20"/>
+
+
+<!-- #### PARTE DI TRASFERIMENTO #### -->
+
+        <record id="popup_create_temp_picking" model="ir.ui.view">
+            <field name="name">popup.create.temp.picking</field>
+            <field name="model">wizard.create.picking</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="location_id" />
+                            <field name="location_dest_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="picking_type_id" readonly="1"/>
+                            <field name="note"/>
+                        </group>
+                    </group>
+                    <field name="move_lines">
+                        <tree editable="0" create="0">
+                            <field name="product_id_name"/>
+                            <field name="lot_id_name"/>
+                            <field name="product_qty"/>
+                            <field name="product_uom_name"/>
+                            <field name="product_qty_totr"/>
+                        </tree>
+                    </field>
+                    <footer>
+                        <button name="do_move" string="Applica" type="object" default_focus="1" class="oe_highlight"/>
+                        <button string="Chiudi" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="popup_create_temp_picking_manager" model="ir.ui.view">
+            <field name="name">popup.create.temp.picking.manager</field>
+            <field name="model">wizard.create.picking</field>
+            <field name="inherit_id" ref="popup_create_temp_picking"/>
+            <field name="groups_id" eval="[(4, ref('stock.group_stock_user'))]"/>
+            <field name="arch" type="xml">
+                <field name="location_dest_id" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+                <field name="picking_type_id" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>                
+            </field>
+        </record>
+
+        <record id="action_create_internal_move" model="ir.actions.server">
+            <field name="name">Trasferisci</field>
+            <field name="model_id" ref="model_wizard_create_picking"/>
+            <field name="state">code</field>
+            <field name="code">action = model.crea_picking(context.get('active_ids'))</field>
+        </record>
+                    
+        <record model="ir.values" id="ir_value_create_internal_move">
+            <field name="model_id" ref="cq_stock_10.model_wizard_create_picking" />
+            <field name="name">Trasferisci</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_create_internal_move'))" />
+            <field name="key">action</field>
+            <field name="model">av.qty.lots</field>
+            <field eval="True" name="object"/>
+        </record>
+
+
+
+
+    </data>
+</openerp>
+
+

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="purchase_config_form_cq" model="ir.ui.view">
+        <field name="name">sales.config.form.cq</field>
+        <field name="model">purchase.config.settings</field>
+        <field name="inherit_id" ref="purchase.view_purchase_configuration"/>
+        <field name="arch" type="xml">
+            <field name="group_manage_vendor_price" position="after">
+                <field name="purchase_order_show_residual" widget="radio"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <record id="prodotto_cessione_gratuita" model="product.template">
+            <field name="name">Merce in Cessione Gratuita art 2</field>
+            <field name="default_code">MCG2</field>
+            <field name="type">service</field>
+            <field name="sp_type">sconto</field>
+            <field name="sale_ok">true</field>
+            <field name="categ_id" ref="product.product_category_all"></field>
+            <field name="purchase_ok">false</field>
+            <field name="taxes_id" eval="[(5,0,0)]" />
+            <field name="supplier_taxes_id" eval="[(5,0,0)]" />
+        </record>
+        
+        <record id="prodotto_sconto_cassa" model="product.template">
+            <field name="name">Sconto Cassa</field>
+            <field name="default_code">SC</field>
+            <field name="type">service</field>
+            <field name="sp_type">sconto_cassa</field>
+            <field name="sale_ok">true</field>
+            <field name="purchase_ok">false</field>
+            <field name="invoice_policy">order</field>
+            <field name="categ_id" ref="product.product_category_all"></field>
+            <field name="taxes_id" eval="[(5,0,0)]" />
+            <field name="supplier_taxes_id" eval="[(5,0,0)]" />
+        </record>        
+        
+    </data>
+</odoo>

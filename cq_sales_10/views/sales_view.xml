@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data>
+
+    <record id="cq_sales_10_view_order_form" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_order_dates.view_order_form_inherit_sale_stock_inherit_sale_order_dates"/>
+        <field name="arch" type="xml">
+            <field name="requested_date" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </field>
+            <field name="requested_date" position="after">
+                <label for="data_concordata"/>
+                <div>
+                    <field name="data_concordata"
+                        attrs="{'readonly': [('state','in',['sale','done','cancel'])]}"/>
+                    <br/>
+                    <button name="show_popup_change_date" type="object"
+                        attrs="{'invisible': [('state','in',['sale','done','cancel'])]}"
+                        string="Change Agreed Dates" class="fa fa-calendar o_icon_button"
+                        help="Show a popup where confirming or not to replace all the Agreed Delivery Dates on lines according to that from the order."/>
+                </div>
+            </field>
+             <field name="effective_date" position="attributes">
+                 <attribute name="invisible">1</attribute>
+             </field>
+             <field name="commitment_date" position="attributes">
+                 <attribute name="invisible">1</attribute>
+             </field>
+        </field>
+    </record>
+
+    <record id="cq_sales_10_view_order_tree_date" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_order_dates.view_order_tree_date"/>
+        <field name="arch" type="xml">
+            <field name="requested_date" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="cq_sales_10_view_order_tree" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="amount_total" position="before">
+                <field name="amount_untaxed" string="Untaxed" sum="Untaxed Amount" widget="monetary"/>
+                <field name="residual_untaxed" sum="Untaxed Residual"
+                    widget="monetary"/>
+            </field>
+            <field name="amount_total" position="after">
+                <field name="residual_total" sum="Total Residual" invisible="1" 
+                    widget="monetary"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="cq_sales_10_inherit_sale_order" model="ir.ui.view">
+        <field name="name">cq.sales.10.inherit.sale.order</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <!--la creazione veloce dalle righe dell'ordine vendita è incompatibile con il vincolo del codice prodotto obbligatorio e unico in cq_products_10,
+                 perchè si sta creando una variante e non un template-->
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">
+                <attribute name="options">{'no_create_edit':1}</attribute>
+            </xpath>
+
+            <field name="partner_id" position="before">
+                <field name="id" invisible="1"/>
+                <field name="n_sale_sequences" invisible="1"/>
+                <field name="sale_sequence" widget="selection" attrs="{'readonly':[('id','!=',False)], 'invisible':[('n_sale_sequences','=',1)]}"/>
+            </field>
+
+            <field name="partner_id" position="attributes">
+                <attribute name="domain">['|',('is_company','=',True),('parent_id','=',False),('customer','=',True)]</attribute>
+            </field>
+
+            <xpath expr="//form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='name']" position="after">
+                <field name="data_concordata"
+                    attrs="{'readonly': [('state','in',['sale','done','cancel'])]}"/>
+            </xpath>
+
+            <xpath expr="//form/sheet/notebook/page/field[@name='order_line']/form//field[@name='product_id']" position="after">
+                <field name="data_concordata"
+                     attrs="{'readonly': [('state','in',['sale','done','cancel'])]}"/>
+            </xpath>
+
+            <xpath expr="//form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='discount']" position="before">
+                <field name="prodotto_sconto" attrs="{'readonly':[('invoice_status','=','invoiced')]}"/>
+            </xpath>
+            <xpath expr="//form/sheet/notebook/page/field[@name='order_line']/form//field[@name='price_unit']" position="after">
+                <field name="prodotto_sconto" />
+            </xpath>
+            <xpath expr="//field[@name='amount_total']" position="after">
+                <field name="totale_documento" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+            </xpath>
+            <field name="date_order" position="attributes">
+                <attribute name="attrs">{'readonly': [('state', 'in', ['sale', 'done', 'cancel'])]}</attribute>
+            </field>
+            <field name="confirmation_date" position="attributes">
+                <attribute name="attrs">{'invisible': [('state', 'in', ['draft', 'sent', 'cancel'])], 'readonly': [('state', 'in', ['sale', 'done'])]}</attribute>
+            </field>
+            <xpath expr="//field[@name='state']" position='before'>
+                <button name="copy_cancel" states="draft,sent" string="Nuova Versione" type='object'/>
+            </xpath>
+            <xpath expr="//field[@name='note']" position='after'>
+                <group class="oe_inline oe_right">
+                    <field name="perc_sconto_cassa" />
+                    <field name='ammontare_sconto_cassa'/>
+                </group>
+             </xpath>
+             <field name="user_id" position="attributes">
+                 <attribute name="options">{'no_create_edit':True}</attribute>
+             </field>
+        </field>
+    </record>
+
+    <record id="cq_sales_10_inherit_sale_order_man" model="ir.ui.view">
+        <field name="name">cq.sales.10.inherit.sale.order.manager</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="groups_id" eval="[(6,0,[ref('sales_team.group_sale_manager')])]"/>
+        <field name="arch" type="xml">
+            <field name="confirmation_date" position="attributes">
+                <attribute name="attrs">{'invisible': [('state', 'in', ['draft', 'sent', 'cancel'])], 'readonly': [('state', '=', 'done')]}</attribute>
+            </field>
+        </field>
+     </record>
+
+    <record id="cq_sales_10_inherit_sale_order_2" model="ir.ui.view">
+        <field name="name">cq.sales.10.inherit.sale.order.2</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <field name="amount_total" position="before">
+                <field name="amount_untaxed" string="Untaxed" sum="Untaxed Amount" widget="monetary"/>
+            </field>
+            <field name="state" position="after">
+                <field name="validity_date"/>
+            </field>
+            <xpath expr="//tree" position="attributes">
+                <attribute name="colors">red:validity_date!=False and validity_date &lt; current_date</attribute>
+            </xpath>
+        </field>
+     </record>
+
+    <record id="sale_order_search_quotation_cq_sales" model="ir.ui.view">
+        <field name="name">sale.order.search.quotation.cq.sales</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='sales']" position="after">
+                <filter string="Cancelled" name="cancel" domain="[('state','=','cancel')]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sale_order_search_sale_cq_sales" model="ir.ui.view">
+        <field name="name">sale.order.search.sale.cq.sales</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.sale_order_view_search_inherit_sale"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='sales']" position="replace">
+                <filter string="Sales" name="sales" domain="[('state','=','sale')]" />
+                <filter string="Locked" name="done" domain="[('state','=','done')]" />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Popup for changing Data Concordata field -->
+    <record id="popup_form_change_data_concordata" model="ir.ui.view">
+        <field name="name">popup.form.change.data.concordata</field>
+        <field name="model">change.data.concordata</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Do you want to replace 'Agreed Delivery Dates' on order lines?">
+                <div>
+                    <p>
+                        If you click on 'Confirm', each Agreed Delivery Date on order lines
+                        will be replaced with this one taken from the order:
+                    </p>
+                    <h3> <field name="data_concordata" readonly="1"/> </h3>
+                </div>
+                <footer>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                    <button name="get_the_date" string="Confirm" type="object"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+
+    <record id="sale.action_quotations" model="ir.actions.act_window">
+        <field name="domain">[('state', 'in', ('draft', 'sent', 'cancel'))]</field>
+    </record>
+
+    <record id="sale.action_orders" model="ir.actions.act_window">
+        <field name="domain">['|', ('invoice_status','=','to invoice'), ('state', 'in', ('sale', 'done'))]</field>
+    </record>
+
+
+    <delete id="sale.menu_sale_order_upselling" model="ir.ui.menu"/>
+
+    <!--punto di menu contatti in configurazione vendite spostato in configurazione contabilità e assegnato al gruppo manager contabile-->
+    <menuitem id="sales_team.menu_config_address_book" parent="account.menu_finance_configuration" groups="account.group_account_manager"/>
+        <menuitem id="sales_team.menu_partner_category_form" groups="account.group_account_manager" parent="sales_team.menu_config_address_book"/>
+        <menuitem id="sales_team.menu_partner_title_contact" groups="account.group_account_manager" parent="sales_team.menu_config_address_book"/>
+        <menuitem id="sales_team.menu_localisation" groups="account.group_account_manager" parent="sales_team.menu_config_address_book"/>
+            <menuitem id="sales_team.menu_country_partner" groups="account.group_account_manager" parent="sales_team.menu_localisation"/>
+            <menuitem id="sales_team.menu_country_group" groups="account.group_account_manager" parent="sales_team.menu_localisation"/>
+            <menuitem id="sales_team.menu_country_state_partner" groups="account.group_account_manager" parent="sales_team.menu_localisation"/>
+        <menuitem id="sales_team.menu_config_bank_accounts" groups="account.group_account_manager" parent="sales_team.menu_config_address_book"/>
+            <menuitem id="sales_team.menu_action_res_bank_form" groups="account.group_account_manager" parent="sales_team.menu_config_bank_accounts"/>
+            <menuitem id="sales_team.menu_action_res_partner_bank_form" groups="account.group_account_manager" parent="sales_team.menu_config_bank_accounts"/>
+
+    <!--punto di menu prodotti in configurazione vendite spostato in configurazione contabilità e assegnato al gruppo manager contabile-->
+    <menuitem id="sale.prod_config_main" parent="account.menu_finance_configuration" groups="account.group_account_manager"/>
+        <menuitem groups="account.group_account_manager" id="sale.menu_product_category_action_form" parent="sale.prod_config_main"/>
+        <menuitem id="sale.menu_product_uom_categ_form_action" groups="account.group_account_manager" parent="sale.prod_config_main"/>
+
+    <!--creati punti di menu contatti e figli in configurazione vendite-->
+    <menuitem id="menu_config_address_book_sale" parent="sales_team.menu_sale_config" name="Contacts" sequence="4" groups="account.group_account_manager"/>
+            <menuitem action="base.action_partner_category_form" id="menu_partner_category_form_sale" name="Contact Tags" sequence="1" parent="menu_config_address_book_sale" />
+            <menuitem action="base.action_partner_title_contact" id="menu_partner_title_contact_sale" name="Contact Titles" parent="menu_config_address_book_sale" sequence="3" />
+            <menuitem id="menu_localisation_sale" name="Localization" parent="menu_config_address_book_sale" sequence="5"/>
+                <menuitem action="base.action_country" id="menu_country_partner_sale" name="Countries" parent="menu_localisation_sale" sequence="1" />
+                <menuitem action="base.action_country_group" id="menu_country_group_sale" name="Country Group" parent="menu_localisation_sale" sequence="3" />
+                <menuitem action="base.action_country_state" id="menu_country_state_partner_sale" name="Fed. States" parent="menu_localisation_sale" sequence="2" />
+                <menuitem action="base.action_currency_form" id="menu_action_currency_form_sale" parent="menu_localisation_sale" name="Currencies" sequence="3" groups="base.group_multi_currency"/>
+            <menuitem id="menu_config_bank_accounts_sale" name="Bank Accounts"
+                parent="menu_config_address_book_sale" sequence="6"
+                groups="account.group_account_manager"/>
+                <menuitem action="base.action_res_bank_form" id="menu_action_res_bank_form_sale"
+                    name="Banks" parent="menu_config_bank_accounts_sale" sequence="1" />
+                <menuitem action="base.action_res_partner_bank_account_form"
+                    id="menu_action_res_partner_bank_form_sale" name="Bank Accounts"
+                    parent="menu_config_bank_accounts_sale" sequence="2"/>
+
+    <!--creati punti di menu prodotti e figli in configurazione vendite-->
+    <menuitem id="prod_config_main_sale" name="Products" parent="sales_team.menu_sale_config" sequence="2" groups="account.group_account_manager"/>
+        <menuitem action="product.attribute_action" id="menu_attribute_action_sale" name="Attributes" parent="prod_config_main_sale" sequence="4" groups="product.group_product_variant"/>
+        <menuitem action="product.variants_action" id="menu_variants_action_sale" name="Attribute Values" parent="prod_config_main_sale" sequence="5" groups="product.group_product_variant"/>
+        <menuitem action="product.product_category_action_form" id="menu_product_category_action_form_sale" name="Product Categories" parent="prod_config_main_sale" sequence="2"/>
+        <menuitem action="product.product_uom_form_action" id="menu_product_uom_form_action_sale" name="Units of Measure" parent="prod_config_main_sale" sequence="6" groups="product.group_uom"/>
+        <menuitem action="product.product_uom_categ_form_action" id="menu_product_uom_categ_form_action_sale" name="Unit of Measure Categories" parent="prod_config_main_sale" sequence="7"/>
+
+    </data>
+</odoo>
+

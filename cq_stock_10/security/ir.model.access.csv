@@ -1,0 +1,4 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"cq_stock_valuation_manager","cq_stock_valuation_manager","cq_stock_10.model_cq_stock_valuation","stock.group_stock_manager",1,1,1,1
+"cq_stock_valuation_line_manager","cq_stock_valuation_line_manager","cq_stock_10.model_cq_stock_valuation_line","stock.group_stock_manager",1,1,1,1
+"cq_stock_valuation_line_lots_manager","cq_stock_valuation_line_lots_manager","cq_stock_10.model_cq_stock_valuation_line_lots","stock.group_stock_manager",1,1,1,1

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data>
+  	     
+  	    <record id="account_invoice_inherit_forzanff" model="ir.ui.view">
+  		    <field name="name">account.invoice.inherit.forzanff</field>
+  		    <field name="model">account.invoice</field>
+  		    <field name="inherit_id" ref="account.invoice_supplier_form"/>
+  		    <field name="arch" type="xml">
+                      <field name="partner_id" position="after">
+                	<field name="internal_number" attrs = "{'invisible':[('state', 'in', ['open', 'paid'])]}"/>
+                      </field>
+  		    </field>
+  	    </record> 
+  	     
+  	    <record id="account_invoice_inherit_forzanfc" model="ir.ui.view">
+  		    <field name="name">account.invoice.inherit.forzanfc</field>
+  		    <field name="model">account.invoice</field>
+  		    <field name="inherit_id" ref="account.invoice_form"/>
+  		    <field name="arch" type="xml">
+                     <field name="partner_id" position="after">
+                	<field name="internal_number" attrs = "{'invisible':[('state', 'in', ['open', 'paid'])]}"/>
+                     </field>
+  		    </field>
+  	    </record> 
+  	    
+    </data>
+</odoo>

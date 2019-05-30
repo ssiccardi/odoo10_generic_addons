@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+
+    <!-- Tree view -->
+    <record id="view_cq_stock_lot_tree" model="ir.ui.view">
+        <field name="name">view.cq.stock.lot.tree</field>
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_tree"/>
+        <field name="arch" type="xml">
+            <field name="product_id" position="before">
+                <field name="product_qty"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_stock_production_lot_cq_form" model="ir.ui.view">
+        <field name="name">stock.production.lot.cq</field>
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='ref']" position="before">
+                <field name="str_qty_av"/>
+            </xpath>
+            <xpath expr="//field[@name='product_uom_id']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+        </field>
+    </record>
+    
+    <record id="view_stock_pack_operation_qty_av" model="ir.ui.view">
+        <field name="name">stock.pack.operation.qty.av</field>
+        <field name="model">stock.pack.operation</field>
+        <field name="inherit_id" ref="stock.view_pack_operation_lot_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='pack_lot_ids']/tree/field[@name='lot_id']" position="after">
+                <field name="str_qty_av" invisible="context.get('only_create', False)"/>
+                <field name="from_make_to_order_move" invisible="1" />
+            </xpath>
+            <xpath expr="//field[@name='pack_lot_ids']/tree/field[@name='lot_id']" position="attributes">
+                <attribute name="attrs">{'readonly':[('from_make_to_order_move','=',True)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+    
+</odoo>

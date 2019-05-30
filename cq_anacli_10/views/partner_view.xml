@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+  <data>
+  
+    <record id="account.view_partner_property_form" model="ir.ui.view"> <!--tendina contabilità su scheda cliente visibile a tutti-->
+        <field name="groups_id" eval="[(6, 0, [ref('base.group_user')])]"/><!--verranno nascosti singolarmente i campi che non devono vedere-->
+    </record>
+    
+    <record id="res_partner_inherit_anacli_vat_required" model="ir.ui.view">
+        <field name="name">res.partner.vat.required</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base_vat.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="vat" position="before">
+                <field name="vat_required" />
+            </field>
+            <field name="vat" position="attributes">
+                <attribute name="attrs">{'required':[('vat_required','=',True)]}</attribute>
+            </field>
+        </field>
+    </record>
+
+  	<record id="res_partner_inherit_anacli" model="ir.ui.view">
+  		<field name="name">res.partner.inherit.anacli</field>
+  		<field name="model">res.partner</field>
+  		<field name="inherit_id" ref="base.view_partner_form"/>
+  		<field name="arch" type="xml">
+  			<xpath expr="//sheet/group/group/div[@class='o_address_format']/div[@class='oe_edit_only']/button" position="attributes">
+  				<attribute name="invisible">"1"</attribute>
+  			</xpath>
+  			<field name="street" position="attributes">
+  				<attribute name="attrs">{'readonly': [('company_type', '=', 'person'), ('parent_id', '!=', False)]}</attribute>
+  			</field>
+  			<field name="street2" position="attributes">
+  				<attribute name="attrs">{'readonly': [('company_type', '=', 'person'), ('parent_id', '!=', False)]}</attribute>
+  			</field>
+  			<field name="city" position="attributes">
+  				<attribute name="attrs">{'readonly': [('company_type', '=', 'person'), ('parent_id', '!=', False)]}</attribute>
+  			</field>
+  			<field name="state_id" position="attributes">
+  				<attribute name="attrs">{'readonly': [('company_type', '=', 'person'), ('parent_id', '!=', False)]}</attribute>
+  			</field>
+  			<field name="zip" position="attributes">
+  				<attribute name="attrs">{'readonly': [('company_type', '=', 'person'), ('parent_id', '!=', False)]}</attribute>
+  			</field>
+  			<field name="country_id" position="attributes">
+  				<attribute name="attrs">{'readonly': [('company_type', '=', 'person'), ('parent_id', '!=', False)]}</attribute>
+  			</field>
+            <xpath expr="//sheet/div[@class='oe_title']/div[@class='o_row']" position="after">
+            	<group>
+                	<div class="o_row">
+                		<field name="sector" options="{'no_create': True}" attrs="{'invisible':[('is_company', '!=', True)]}" placeholder="Tipo: es. Holding"/>
+                	</div>
+                </group>
+            </xpath>
+  			<field name="parent_id" position="attributes">
+                <attribute name="domain">['|',('customer','=',True),('supplier','=',True), '|', ('is_company', '=', True), ('parent_id', '=', False)]</attribute>
+  				<attribute name="attrs">{'invisible': [('supplier', '=', False), ('customer', '=', False)]}</attribute>
+  			</field>
+  			<field name="email" position="after">
+  				<field name="email_vendite"/>
+  				<field name="email_fatture"/>
+  				<field name="email_acquisti"/>
+  			</field>
+  			<field name="name" position="attributes">
+  				<attribute name="placeholder">Business name or Name</attribute>
+  			</field>  
+  			<xpath expr="//field[@name='ref']/.." position="replace"></xpath>
+  			<field name="type" position="before">
+  				<field name='id' invisible='True'/>
+  				<field name="ref" string="Code" attrs="{'readonly':[('id', '=', False)], 'required':[('id', '!=', False)]}"/>
+  				<field name="hierarchy_code" attrs="{'invisible':[('company_type', '=', 'person')]}"/>
+  				<field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>  				
+  			</field> 
+  			<xpath expr="//notebook/page[1]/field[1]/form[1]/sheet" position="replace"> 
+                 <sheet>  
+                    <div class="oe_left">
+                        <group>
+                        <field name="type" required="1" widget="selection"/>
+                        </group>   
+                    </div>
+                    <hr/>
+                    <group>
+                        <group attrs="{'invisible':['|', '|', '|', ('type','=', 'contact'), ('type', '=', 'admin_contact'), ('type', '=', 'purchase_contact'), ('type', '=', 'sale_contact')]}">    
+                            <label for="street" string="Address"/>
+                            <div>
+                                <div class="o_address_format" name="div_address">
+                                    <field name="street" placeholder="Street..." class="o_address_street" />
+                                    <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                                    <field name="city" placeholder="City" class="o_address_city"/>
+                                    <field name="state_id" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True}" context="{'country_id': country_id, 'zip': zip}"/>
+                                    <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                    <field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                </div>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="name" string="Contact Name" attrs="{'required' : ['|', '|', '|', ('type', '=', 'contact'), ('type', '=', 'admin_contact'), ('type', '=', 'purchase_contact'), ('type', '=', 'sale_contact')]}"/>
+                            <field name="title" placeholder="e.g. Mr." attrs="{'invisible': ['|', '|', '|', ('type','=', 'invoice'), ('type', '=', 'delivery'), ('type', '=', 'other')]}"/>
+                            <field name="function" placeholder="e.g. Sales Director" attrs="{'invisible': ['|', '|', '|', ('type','=', 'invoice'), ('type', '=', 'delivery'), ('type', '=', 'other')]}"/>
+                            <field name="email"/>
+                            <field name="phone" widget="phone" placeholder="add the country code e.g. +39"/>
+                            <field name="mobile" widget="phone" placeholder="add the country code e.g. +39"/>
+                            <field name="comment" placeholder="internal note..."/>
+                        </group>
+                    </group> 
+                    <field name="supplier" invisible="True"/>
+                    <field name="customer" invisible="True"/>
+                    <field name="lang" invisible="True"/>
+                    <field name="image" invisible="True"/>
+                 </sheet>  
+  			</xpath>
+  			<field name='credit' position="attributes">
+  			    <attribute name='groups'></attribute>
+  			    <attribute name='readonly'>1</attribute>
+  			</field>
+  			<field name='credit' position="after">
+  			    <field name='credit_limit' groups="account.group_account_manager" widget="monetary" help='Limite massimo Totale credito. Verrà bloccata la conferma del preventivo di vendita nel caso in cui venga superato. Impostare a 0 per evitare il controllo.'></field>
+  			</field>  			
+  			<field name='debit' position="attributes">
+  			    <attribute name='groups'></attribute>
+  			    <attribute name='readonly'>1</attribute>
+  			</field>
+  			<field name='state_id' position="attributes">
+  			    <attribute name='options'>{'no_create_edit':True, 'no_open': True}</attribute>
+  			</field>
+ 		</field>
+  	</record> 
+
+  	<record id="res_partner_inherit_button_change_company" model="ir.ui.view">
+  		<field name="name">res.partner.inherit.button.change.company</field>
+  		<field name="model">res.partner</field>
+  		<field name="inherit_id" ref="account.view_partner_property_form"/>
+  		<field name="arch" type="xml">
+            <xpath expr="//group[@name='accounting_entries']" position="after">
+                <div class="oe_row" name="button_new_company">
+                	<button name="New_Company" 
+                        	type="object" 
+                        	string="Change company data"
+                        	icon="fa-pencil-square-o"
+                        	confirm="Cliccando ok verrà archiviato il cliente attuale e generato uno nuovo a cui si potrà assegnare la nuova ragione sociale,
+    tutti i contatti del cliente che si sta archiviando verranno riportati a quello nuovo. Il cliente che si va a chiudere comparirà come contatto del cliente che si andrà a creare."
+                        	attrs="{'invisible':[('is_company', '!=', True)]}"/>
+                </div>
+                <group/><br/><br/>
+  				<div class="o_horizontal_separator" groups="account.group_account_manager">Bank Account(s)</div>
+    		    <field name="bank_ids" nolabel="1" groups="account.group_account_manager"/>
+    		    <!--div class="o_horizontal_separator" groups="account.group_account_manager">Credit Card(s)</div>
+    	        <field name="payment_token_ids" nolabel="1" groups="account.group_account_manager"/-->
+            </xpath>
+ 		</field>
+  	</record>            
+                  	
+  	<record id="res_partner_inherit_anacli1" model="ir.ui.view">
+  		<field name="name">res.partner.inherit.anacli1</field>
+  		<field name="model">res.partner</field>
+  		<field name="inherit_id" ref="base.view_partner_tree"/>
+  		<field name="arch" type="xml">
+  			<field name="display_name" position="before">
+  				<field name="ref" string="Code"/> 
+  				<field name="hierarchy_level"/>
+  			</field>
+  		</field>
+  	</record>	
+  	
+  	<record id="res_partner_inherit_anacli2" model="ir.ui.view">
+  		<field name="name">res.partner.inherit.anacli2</field>
+  		<field name="model">res.partner</field>
+  		<field name="inherit_id" ref="mail.view_emails_partner_info_form"/>
+  		<field name="arch" type="xml">
+  			<field name="message_bounce" position="attributes">
+  				<attribute name="invisible">1</attribute>
+  			</field>
+  			<field name="opt_out" position="attributes">
+  				<attribute name="string">Mass Mailing No</attribute>
+  			</field>
+  		</field>
+  	</record>
+	
+  	<record id="res_partner_bank_inherit_anacli5" model="ir.ui.view">
+  		<field name="name">res.partner.bank.inherit.anacli5</field>
+  		<field name="model">res.partner.bank</field>
+  		<field name="inherit_id" ref="base.view_partner_bank_tree"/>
+  		<field name="arch" type="xml">
+  			<field name="bank_name" position="attributes">
+  				<attribute name="string">Bank Name</attribute>
+  			</field>
+  		</field>
+  	</record> 
+  	
+  	<record id="res_partner_inherit_anacli6" model="ir.ui.view">
+  		<field name="name">res.partner.inherit.anacli6</field>
+  		<field name="model">res.partner</field>
+  		<field name="inherit_id" ref="account.partner_view_buttons"/>
+  		<field name="arch" type="xml">
+  			<xpath expr="//group[@name='container_row_2']/group[@name='banks']" position="attributes">
+  				<attribute name="invisible">1</attribute>
+  			</xpath>
+  		</field>
+  	</record>  
+ 
+  	<record id="res_partner_inherit_anacli8" model="ir.ui.view">
+  		<field name="name">res.partner.inherit.anacli8</field>
+  		<field name="model">res.partner</field>
+  		<field name="inherit_id" ref="base.view_res_partner_filter"/>
+  		<field name="arch" type="xml">
+  			<field name="name" position="attributes">
+                <!-- Ricerco anche per i figli con nome simile (nel caso di aggiornamento dei dati) -->
+  				<attribute name="filter_domain">"['|','|','|',('display_name','ilike',self),('ref','=',self),('email','ilike',self),('child_ids','child_of',[self])]</attribute>
+  			</field>
+            <!-- Filtri: mostrano aziende e privati -->
+            <filter name="customer" position="attributes">
+                <!-- filtro "Clienti" corrisponde a "E' un cliente" -->
+                <attribute name="domain">[('customer', '=', True)]</attribute>
+            </filter>
+            <filter name="supplier" position="attributes">
+                <attribute name="domain">['&amp;', ('supplier', '=', True), '|', ('is_company', '=', True), ('parent_id', '=', False)]</attribute>
+            </filter>
+  		</field>
+  	</record>
+  	
+  	<record id="cq_anacli_10_sector_company_form" model="ir.ui.view">
+  		<field name="name">cq.anacli.10.sector.company.form</field>
+        <field name="model">sector.company</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+        	<form string="Sectors in company">
+        		<group>
+        			<field name="name"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    
+    <record id="cq_anacli_10_sector_company_tree" model="ir.ui.view">
+            <field name="name">cq.anacli.10.sector.company.tree</field>
+            <field name="model">sector.company</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Sectors in company">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+    
+    <record id="cq_anacli_10_partner_sequence_form" model="ir.ui.view">
+        <field name="name">cq.anacli.10.partner_sequence.form</field>
+        <field name="model">partner.sequence</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Sequences">
+                <group>
+                    <field name="name"/>
+                    <field name="prefix"/>
+                    <field name="len_digit"/>
+                    <field name="next_number"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="cq_anacli_10_partner_sequence_tree" model="ir.ui.view">
+            <field name="name">cq.anacli.10.partner.sequence.tree</field>
+            <field name="model">partner.sequence</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Sequences">
+                    <field name="name"/>
+                    <field name="prefix"/>
+                    <field name="len_digit"/>
+                    <field name="next_number"/>
+                </tree>
+            </field>
+        </record>
+
+    <!-- Separazione filtro 'Clienti' in due filtri 'Azienda' e 'Clienti'  -->
+    <record id="base.action_partner_form" model="ir.actions.act_window">
+        <field name="context">
+            {"search_default_type_company":1,"search_default_customer":1}
+        </field>
+    </record>
+
+    <record id="cq_anacli_10_company_sector" model="ir.actions.act_window">
+            <field name="name">Sectors in company</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sector.company</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    <record id="cq_anacli_10_partner_sequence_code" model="ir.actions.act_window">
+            <field name="name">Sequences</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">partner.sequence</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+            action="cq_anacli_10_company_sector"
+            name="Company Sector"
+            id="new_company_sector"
+            parent="sales_team.menu_config_address_book"
+            groups="account.group_account_manager"/> 
+
+    <menuitem
+            action="cq_anacli_10_partner_sequence_code"
+            name="Partner Sequence Codes"
+            id="menu_partner_sequence_code"
+            parent="sales_team.menu_config_address_book"
+            groups="account.group_account_manager"/> 
+
+  </data>
+</odoo>

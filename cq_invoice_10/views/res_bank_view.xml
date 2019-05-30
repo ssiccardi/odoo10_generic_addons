@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<openerp>
+  <data>
+
+    <record id="view_partner_bank_form_default_bank" model="ir.ui.view">
+        <field name="name">view.partner.bank.form.default.bank</field>
+        <field name="model">res.partner.bank</field>
+        <field name="inherit_id" ref="base.view_partner_bank_form"/>
+        <field name="arch" type="xml">
+            <field name="acc_number" position="after">
+                <field name="default_bank" attrs="{'invisible':[('company_id', '=', False)]}"/>
+            </field>
+            <field name="partner_id" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+        </field>
+    </record>
+
+  </data>
+</openerp>

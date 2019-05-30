@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+   <delete model="ir.ui.menu" id="utm.menu_link_tracker_root"/>
+   <delete model="ir.ui.menu" id="utm.marketing_utm"/>
+   <delete model="ir.ui.menu" id="utm.menu_utm_campaign_act"/>
+   <delete model="ir.ui.menu" id="utm.menu_utm_medium"/>
+   
+    <record id="sale_view_inherit123_mark" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.sale.marketing</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_crm.sale_view_inherit123"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='technical']" position="attributes">
+                <attribute name="groups"></attribute>
+            </xpath>
+            <field name="campaign_id" position='attributes'>
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="medium_id" position='attributes'>
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="source_id" position='attributes'>
+                <attribute name="options">{'no_create': True}</attribute>
+                <attribute name="groups"></attribute>
+            </field>  
+            <field name="opportunity_id" position='attributes'>
+                <attribute name="options">{'no_create': True}</attribute>
+                <attribute name="groups"></attribute>
+            </field>        
+        </field>
+    </record>
+
+    <record id="view_order_form_inherit_button_confirm" model="ir.ui.view">
+        <field name="name">view_order_form_inherit_button_confirm</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_confirm' and @states='sent']" position="replace">
+                <button name="action_confirm_win_opportunity" states="sent" string="Conferma Ordine" class="btn-primary o_sale_confirm" type="object" />
+            </xpath>
+            <xpath expr="//button[@name='action_confirm' and @states='draft']" position="replace">
+                <button name="action_confirm_win_opportunity" states="draft" string="Conferma Ordine" class="o_sale_confirm" type="object" />
+            </xpath>
+            <field name="partner_id" position="after">
+                <field name="contact_partner_id" domain="[('id','child_of',partner_id)]"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_order_form_popup_confirm" model="ir.ui.view">
+        <field name="name">sale.order.form.popup.confirm</field>
+        <field name="model">sale.order</field>
+        <field name="sequence">1000</field>
+        <field name="arch" type="xml">
+            <form string="Opportunità">
+                <group>
+                    <field name="opportunity_id" readonly="1"/>
+                </group>
+                <footer>
+                    <button name="set_opportunity_won" string="Marca Vinta" type="object" class="btn btn-sm btn-primary"/>
+                    <button name="action_confirm" string="Ignora" type="object" class="btn btn-sm btn-default"/>
+                    <button string="Annulla" class="btn btn-sm btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

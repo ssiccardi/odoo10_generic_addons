@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <!-- ir model fields -->
+        <record id="view_model_fields_form_create_and_edit" model="ir.ui.view">
+            <field name="model">ir.model.fields</field>
+            <field name="inherit_id" ref="base.view_model_fields_form" />
+            <field name="arch" type="xml">
+
+                <field name="required" position="before" >
+                    <field name="show_create_and_edit" />
+                </field>
+            </field>
+        </record>
+
+</odoo>

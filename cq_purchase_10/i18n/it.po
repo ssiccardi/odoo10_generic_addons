@@ -1,0 +1,85 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * cq_purchase_10
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-09-26 13:20+0000\n"
+"PO-Revision-Date: 2017-09-26 13:20+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: cq_purchase_10
+#: code:addons/cq_purchase_10/models/purchase.py:32
+#, python-format
+msgid "New"
+msgstr "Nuovo"
+
+#. module: cq_purchase_10
+#: model:ir.model,name:cq_purchase_10.model_purchase_order
+msgid "Purchase Order"
+msgstr "Ordine di Acquisto"
+
+#. module: cq_purchase_10
+#: model:ir.model,name:cq_purchase_10.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Riga Ordine d'Acquisto"
+
+#. module: purchase
+#: model:ir.ui.menu,name:purchase.menu_product_pricelist_action2_purchase
+msgid "Vendor Pricelists"
+msgstr "Listini Fornitori"
+
+#. module: purchase
+#: selection:purchase.order,invoice_status:0
+msgid "Nothing to Bill"
+msgstr "Nulla da Fatturare"
+
+#. module: purchase
+#: model:ir.ui.view,arch_db:purchase.view_purchase_order_filter
+#: selection:purchase.order,invoice_status:0
+msgid "Waiting Bills"
+msgstr "Attesa Fattura"
+
+#. module: purchase
+#: model:ir.ui.view,arch_db:purchase.purchase_order_form
+msgid "Set date to all order lines"
+msgstr "Imposta date"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_purchase_order_line_qty_invoiced
+msgid "Billed Qty"
+msgstr "Q.tà fatturata"
+
+#. module: cq_purchase_10
+#: model:ir.ui.view,arch_db:purchase.purchase_order_tree
+msgid "Untaxed"
+msgstr "Imponibile"
+
+#. module: cq_purchase_10
+#: model:ir.model.fields,field_description:cq_purchase_10.field_purchase_order_residual_untaxed
+#: model:ir.ui.view,arch_db:cq_purchase_10.purchase_order_tree_cq
+msgid "Untaxed Residual"
+msgstr "Saldo Imponibile"
+
+#. module: cq_purchase_10
+#: model:ir.model.fields,help:cq_purchase_10.field_purchase_order_residual_untaxed
+msgid "Untaxed order amount that is not invoiced yet"
+msgstr "Saldo mancante sull'imponibile dell'ordine che deve ancora essere fatturato"
+
+#. module: cq_purchase_10
+#: model:ir.model.fields,field_description:cq_purchase_10.field_purchase_order_residual_total
+#: model:ir.ui.view,arch_db:cq_purchase_10.purchase_order_tree_cq
+msgid "Total Residual"
+msgstr "Saldo Totale"
+
+#. module: cq_purchase_10
+#: model:ir.model.fields,help:cq_purchase_10.field_sale_order_residual_total
+msgid "Total order amount (including taxes) that is not invoiced yet"
+msgstr "Saldo mancante sul totale dell'ordine (tasse incluse) che deve ancora essere fatturato"

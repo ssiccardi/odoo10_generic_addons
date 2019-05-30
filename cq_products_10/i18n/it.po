@@ -1,0 +1,248 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* cq_products_10
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-10-19 15:23+0000\n"
+"PO-Revision-Date: 2017-10-19 15:23+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: cq_products_10
+#: code:addons/cq_products_10/models/product.py:61
+#, python-format
+msgid " (Copy)"
+msgstr " (Copia)"
+
+#. module: cq_products_10
+#: model:ir.model.fields,field_description:cq_products_10.field_cat_products_zeri
+msgid "# of digits"
+msgstr "# di cifre"
+
+#. module: cq_products_10
+#: code:addons/cq_products_10/models/product.py:51
+#, python-format
+msgid "Another product has the same code %s that would be generated. Check the sequence of the product category."
+msgstr "Un altro prodotto ha il codice %s che verrebbe generato. Controllare la sequenza della cateogria."
+
+#. module: cq_products_10
+#: code:addons/cq_products_10/models/product.py:55
+#: code:addons/cq_products_10/models/product.py:128
+#, python-format
+msgid "Another product has the same code %s. It must be unique."
+msgstr "Un altro prodotto ha lo stesso codice %s. Deve essere unico."
+
+#. module: cq_products_10
+#: model:ir.model.fields,field_description:cq_products_10.field_cat_products_name
+msgid "Category Name"
+msgstr "Categoria prodotto"
+
+#. module: cq_products_10
+#: model:ir.ui.view,arch_db:cq_products_10.cq_warehouse_10_catproducts_form
+#: model:ir.ui.view,arch_db:cq_products_10.cq_warehouse_10_catproducts_tree
+msgid "Category of Products"
+msgstr "Categoria prodotto"
+
+#. module: cq_products_10
+#: selection:product.template,sp_type:0
+msgid "Cessione Gratuita"
+msgstr "Cessione Gratuita"
+
+#. module: cq_products_10
+#: model:ir.model.fields,field_description:cq_products_10.field_product_product_code_is_required
+#: model:ir.model.fields,field_description:cq_products_10.field_product_template_code_is_required
+msgid "Codice obbligatorio?"
+msgstr "Codice obbligatorio?"
+
+#. module: cq_products_10
+#: code:addons/cq_products_10/models/product.py:74
+#, python-format
+msgid "Consumable"
+msgstr "Consumabile"
+
+#. module: cq_products_10
+#: model:ir.model.fields,field_description:cq_products_10.field_cat_products_create_uid
+msgid "Created by"
+msgstr "Creato da"
+
+#. module: cq_products_10
+#: model:ir.model.fields,field_description:cq_products_10.field_cat_products_create_date
+msgid "Created on"
+msgstr "Creato il"
+
+#. module: cq_products_10
+#: code:addons/cq_products_10/models/product.py:84
+#, python-format
+msgid "Description"
+msgstr "Descrizione"
+
+#. module: cq_products_10
+#: selection:product.template,sp_type:0
+msgid "Descrizione"
+msgstr "Descrizione"
+
+#. module: cq_products_10
+#: model:ir.model.fields,field_description:cq_products_10.field_cat_products_display_name
+msgid "Display Name"
+msgstr "Nome Visualizzato"
+
+#. module: cq_products_10
+#: model:ir.model.fields,field_description:cq_products_10.field_cat_products_id
+msgid "ID"
+msgstr "ID"
+
+#. module: cq_products_10
+#: model:ir.model.fields,help:cq_products_10.field_product_product_weight_gross
+#: model:ir.model.fields,help:cq_products_10.field_product_template_weight_gross
+msgid "Il peso lordo: la somma del peso netto e dell'imballaggio, in Kg"
+msgstr "Il peso lordo: la somma del peso netto e dell'imballaggio, in Kg"
+
+#. module: cq_products_10
+#: model:ir.model.fields,field_description:cq_products_10.field_cat_products___last_update
+msgid "Last Modified on"
+msgstr "Ultima modifica il"
+
+#. module: cq_products_10
+#: model:ir.model.fields,field_description:cq_products_10.field_cat_products_write_uid
+msgid "Last Updated by"
+msgstr "Ultima modifica di"
+
+#. module: cq_products_10
+#: model:ir.model.fields,field_description:cq_products_10.field_cat_products_write_date
+msgid "Last Updated on"
+msgstr "Ultima modifica il"
+
+#. module: cq_products_10
+#: model:ir.model.fields,field_description:cq_products_10.field_cat_products_next_number
+msgid "Next Number"
+msgstr "Prossimo Numero"
+
+#. module: cq_products_10
+#: model:ir.model.fields,field_description:cq_products_10.field_product_product_p_suff_default_code
+#: model:ir.model.fields,field_description:cq_products_10.field_product_template_p_suff_default_code
+msgid "P suff default code"
+msgstr "P suff default code"
+
+#. module: cq_products_10
+#: model:ir.model,name:cq_products_10.model_res_partner
+msgid "Partner"
+msgstr "Partner"
+
+#. module: cq_products_10
+#: model:ir.model.fields,field_description:cq_products_10.field_product_product_weight_gross
+#: model:ir.model.fields,field_description:cq_products_10.field_product_template_weight_gross
+msgid "Peso Lordo"
+msgstr "Peso Lordo"
+
+#. module: cq_products_10
+#: model:ir.model.fields,field_description:cq_products_10.field_cat_products_prefix
+msgid "Prefix"
+msgstr "Prefisso"
+
+#. module: cq_products_10
+#: model:ir.model,name:cq_products_10.model_product_product
+msgid "Product"
+msgstr "Prodotto"
+
+#. module: cq_products_10
+#: model:ir.model,name:cq_products_10.model_product_template
+msgid "Product Template"
+msgstr "Template prodotto"
+
+#. module: cq_products_10
+#: model:ir.actions.act_window,name:cq_products_10.new_categ_product
+#: model:ir.ui.menu,name:cq_products_10.menu_new_categ_product
+msgid "Product code sequences"
+msgstr "Codici prodotto"
+
+#. module: cq_products_10
+#: selection:product.template,sp_type:0
+msgid "Sconto Cassa"
+msgstr "Sconto Cassa"
+
+#. module: cq_products_10
+#: code:addons/cq_products_10/models/product.py:75
+#, python-format
+msgid "Service"
+msgstr "Servizio"
+
+#. module: cq_products_10
+#: code:addons/cq_products_10/models/product.py:83
+#, python-format
+msgid "Shipment"
+msgstr "Spedizione"
+
+#. module: cq_products_10
+#: model:ir.model.fields,field_description:cq_products_10.field_product_product_sp_type
+#: model:ir.model.fields,field_description:cq_products_10.field_product_template_sp_type
+msgid "Special Type"
+msgstr "Tipo Speciale"
+
+#. module: cq_products_10
+#: selection:product.template,sp_type:0
+msgid "Spedizione"
+msgstr "Spedizione"
+
+#. module: cq_products_10
+#: code:addons/cq_products_10/models/product.py:76
+#, python-format
+msgid "Stockable Product"
+msgstr "Prodotto Stoccabile"
+
+#. module: cq_products_10
+#: code:addons/cq_products_10/models/product.py:49
+#, python-format
+msgid "The product code is mandatory, but the category and its parents have no sequences."
+msgstr "Il codice prodotto è obbligatorio. È possibile definire una sequenza per la categoria o per una categoria superiore."
+
+#. module: cq_products_10
+#: code:addons/cq_products_10/models/product.py:126
+#, python-format
+msgid "The product code is mandatory."
+msgstr "Il codice prodotto è obbligatorio."
+
+#. module: cq_products_10
+#: model:ir.model,name:cq_products_10.model_cat_products
+msgid "cat.products"
+msgstr "Codici prodotto"
+
+#. module: cq_products_10
+#: model:ir.ui.menu,name:cq_products_10.menu_recompute_variant_descriptions
+#: model:ir.actions.act_window,name:cq_products_10.recompute_variant_descriptions_action
+msgid "Variant Descriptions: Recompute"
+msgstr "Descrizione Varianti: Ricalcolo"
+
+#. module: cq_products_10
+#: model:ir.ui.view,arch_db:cq_products_10.recompute_variant_descriptions_form
+msgid
+""
+"This wizard will overwrite the following fields on product.product,"
+"because in this module they have been decoupled from the related ones on product.template:"
+"<strong>description, description_sale, description_purchase, description_picking.</strong>"
+"<br/>"
+"This wizard is necessary just for databases with existing products,"
+"because the decoupling leaves them empty on product.product."
+"<br/>"
+"It will copy the both the fields values and their translations from product.template to product.product."
+msgstr
+""
+"Questo wizard sovrascriverà the seguenti campi di product.product,"
+"perchè in questo modulo sono stati disaccoppiati dai loro corrispettivi padri definiti su product.template:"
+"<strong>description, description_sale, description_purchase, description_picking.</strong>"
+"<br/>"
+"Questo wizard è necessario solo per quei databases con dei prodotti già esistenti,"
+"perché il disaccoppiamento crea dei campi vuoti su product.product."
+"<br/>"
+"Questo copierà sia il valore di questi campi sia le loro traduzioni da product.template a product.product."
+
+#. module: cq_products_10
+#: model:ir.ui.view,arch_db:cq_products_10.recompute_variant_descriptions_form
+msgid "<strong>Do you want to continue?</strong>"
+msgstr "<strong>Vuoi continuare?</strong>"

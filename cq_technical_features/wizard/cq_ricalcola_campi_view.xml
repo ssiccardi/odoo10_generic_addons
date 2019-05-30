@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+<!-- ##### MENU SOTTO CUI RACCOGLIERE I VARI WIZARD DI RICALCOLO CAMPI ##### -->
+        <menuitem id="menu_cq_ricalcola_campi_base"
+            groups="base.group_system" sequence="200" name="Recompute Fields Wizard"
+            parent="base.menu_custom"/>
+<!-- ######################## -->
+
+    </data>
+</openerp>

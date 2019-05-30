@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="crm.crm_opportunity_report_action" model="ir.actions.act_window">
+        <field name="context">{'search_default_opportunity': True, 'active_test': True, 'search_default_my': True}</field>
+    </record>
+    
+    <record id="crm.crm_opportunity_report_action_lead" model="ir.actions.act_window">
+        <field name="context">{'search_default_lead': True, 'active_test': True, 'search_default_my': True}</field>
+    </record>
+
+</odoo>

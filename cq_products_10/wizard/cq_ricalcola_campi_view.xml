@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+<!-- ##### WIZARD RICALCOLO CAMPI descrizione sulle varianti ##### -->
+        <record id="recompute_variant_descriptions_form" model="ir.ui.view">
+            <field name="name">recompute.variant.descriptions.form</field>
+            <field name="model">cq.ricalcola.campi</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form >
+                    <div>
+                        <!-- è necessario mantenere nulla l'indentazione del contenuto
+                        del paragrafo per poter avere una corretta traduzione -->
+                        <p>
+This wizard will overwrite the following fields on product.product,
+because in this module they have been decoupled from the related ones on product.template:
+<strong>description, description_sale, description_purchase, description_picking.</strong>
+<br/>
+This wizard is necessary just for databases with existing products,
+because the decoupling leaves them empty on product.product.
+<br/>
+It will copy the both the fields values and their translations from product.template to product.product.
+                        </p>
+                        <p><strong>Do you want to continue?</strong></p>
+                    </div>
+                    <separator string="" colspan="8"/>
+                    <footer>
+                        <button name="recompute_variant_descriptions"
+                            string="Confirm" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="recompute_variant_descriptions_action" model="ir.actions.act_window">
+            <field name="name">Variant Descriptions: Recompute</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cq.ricalcola.campi</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="recompute_variant_descriptions_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem action="recompute_variant_descriptions_action" id="menu_recompute_variant_descriptions"
+            groups="base.group_system" name="Variant Descriptions: Recompute"
+            parent="cq_technical_features.menu_cq_ricalcola_campi_base"/>
+<!-- ######################## -->
+
+    </data>
+</openerp>

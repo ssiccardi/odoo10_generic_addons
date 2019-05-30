@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+        
+        <record id="view_account_journal_form_v10" model="ir.ui.view">
+            <field name="name">account.journal.form.v10</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet//page/group" position="inside">
+                    <group>
+                        <field name="no_tax_check"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        
+
+        <!-- Eliminazione menu Contabilità/Configurazione/Contabilità/Conti Bancari
+            anche se si chiama Conti Bancari in realtà mostra Sezionali di tipo Banca
+            in cui il campo bank_acc_number è obbligatorio. Tolto per evitare confusione
+        -->
+        <delete model="ir.ui.menu" id="account.menu_action_account_bank_journal_form"/>
+
+        <record id="account_invoice_inherit_anacli1" model="ir.ui.view">
+            <field name="name">account.invoice.inherit.anacli1</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <field name="date_due" position="before">
+                    <field name="payed_date" attrs="{'invisible': ['|',('state','=','draft'), ('state','=','open')]}"/>
+                </field>
+                <xpath expr="//form/sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='account_id']" position="after"> 
+                    <field name="start_accounting"/>  
+                    <field name="end_accounting"/> 
+                </xpath>
+                <field name="invoice_line_tax_ids" position="attributes">
+                    <attribute name="string">Aliquota IVA</attribute>
+                    <attribute name="on_change">_onchange_taxes</attribute>  
+                </field>
+                <field name="partner_id" position="attributes">
+                    <attribute name="domain">
+                        ['&amp;', ('supplier', '=', True), '|', ('is_company', '=', True), ('parent_id', '=', False)]
+                    </attribute>
+                </field>
+                <xpath expr="//form/header/button[@name='action_invoice_cancel']" position="after">
+                    <button name="popup_numero_fattura" type='object' string='Cancel bill number' groups="base.group_system"
+                        attrs="{'invisible':[('state','not in',['draft','cancel'])]}" 
+                        help="Cancella il numero interno" class="oe_highlight"/>
+                </xpath>
+                <field name="invoice_line_tax_ids" position="replace">
+                    <field name="invoice_line_tax_ids" widget="many2many_tags" context="{'type':parent.type}" 
+                    domain="[('type_tax_use','=','purchase'),('company_id', '=', parent.company_id)]"
+                    options="{'no_create': True}"/>
+                </field>
+                <xpath expr="//field[@name='state']" position="before">
+                    <button name="show_invoices" string="Storico fatture fornitore" type="object" />
+                </xpath>
+                <xpath expr="//field[@name='partner_bank_id']" position="attributes">
+                    <attribute name="invisible">0</attribute>>
+                </xpath>
+                <xpath expr="//field[@name='payment_term_id']" position="attributes">
+                    <attribute name="attrs">{'invisible' : []}</attribute>
+                </xpath>
+            </field>
+        </record> 
+
+        <record id="account_invoice_inherit_anacli2" model="ir.ui.view">
+            <field name="name">account.invoice.inherit.anacli2</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+
+                <field name="date_invoice" position="after" >
+                    <field name="n_proforma" attrs="{'invisible': [('state','=','draft')]}"
+                        readonly="1" groups="account.group_proforma_invoices"/>
+                </field>
+                <xpath expr="/form/header/button[@name='action_invoice_proforma2']" position="attributes">
+                    <attribute name="attrs">
+                        {'invisible': ['|', ('state','!=','draft'), ('n_proforma','!=',False)]}
+                    </attribute>
+                    <attribute name="states"></attribute>
+                </xpath>
+
+                <xpath expr="//form/sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='account_id']" position="after"> 
+                    <field name="start_accounting"/>  
+                    <field name="end_accounting"/> 
+                </xpath>
+                <field name="invoice_line_tax_ids" position="attributes">
+                    <attribute name="string">Aliquota IVA</attribute>
+                </field>
+                <field name="tax_line_ids" position="attributes">
+                    <attribute name="string">Conti IVA</attribute>
+                </field>
+                <field name="partner_id" position="attributes">
+                    <attribute name="domain">['&amp;', ('customer', '=', True), '|', ('is_company', '=', True), ('parent_id', '=', False)]</attribute>
+
+                </field>
+                <xpath expr="//form/header/button[@name='action_invoice_cancel']" position="after">
+                    <button name="popup_numero_fattura" type='object' string="Cancel bill number" groups="base.group_system"  
+                        attrs="{'invisible':[('state','not in',['draft','cancel'])]}" 
+                        help="Cancella il numero interno" class="oe_highlight"/>
+                </xpath>
+                <field name="invoice_line_tax_ids" position="replace">
+                    <field name="invoice_line_tax_ids"  widget="many2many_tags" context="{'type':parent.type}" 
+                        domain="[('type_tax_use','=','sale'),('company_id', '=', parent.company_id)]" options="{'no_create': True}"/>
+                </field>
+                <xpath expr="//page[@name='other_info']/group/group/field[@name='partner_bank_id']" position="attributes">
+                    <attribute name="invisible">0</attribute>>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="account_invoice_inherit_anacli3" model="ir.ui.view">
+            <field name="name">account.invoice.inherit.anacli3</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree"/>
+            <field name="arch" type="xml">
+                <!-- ESN-262
+                    1) sostituite colonne 
+                       "amount_total_signed" e "residual_signed"  (importo in valuta fattura, es. USD, e con segno +/-)
+                       con le colonne "amount_total" e "residual" (importo in valuta fattura, es. USD, e con segno sempre +)
+                    2) aggiunta colonna "amount_untaxed" (importo in valuta fattura, es. USD, e con segno sempre +)
+                 -->
+                <field name="amount_total_signed" position="after">
+                    <field name="amount_untaxed" sum="Untaxed Total"/>
+                    <field name="amount_total" sum="Total"/>
+                </field>
+                <field name="amount_total_signed" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="residual_signed" position="after">
+                    <field name="residual" sum="Amount Due"/>
+                </field>
+                <field name="residual_signed" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="date_invoice" position="before">
+                    <field name="is_refunds"/> 
+                </field>
+            </field>
+        </record>
+
+        <record id="account_invoice_inherit_anacli4" model="ir.ui.view">
+            <field name="name">account.invoice.inherit.anacli4</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_tree"/>
+            <field name="arch" type="xml">
+                <!-- ESN-262
+                    1) sostituite colonne 
+                       "amount_total_signed" e "residual_signed"  (importo in valuta fattura, es. USD, e con segno +/-)
+                       con le colonne "amount_total" e "residual" (importo in valuta fattura, es. USD, e con segno sempre +)
+                    2) aggiunta colonna "amount_untaxed" (importo in valuta fattura, es. USD, e con segno sempre +)
+                 -->
+                <field name="amount_total_signed" position="after">
+                    <field name="amount_untaxed" sum="Untaxed Total"/>
+                    <field name="amount_total" sum="Total"/>
+                </field>
+                <field name="amount_total_signed" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="residual_signed" position="after">
+                    <field name="residual" sum="Amount Due"/>
+                </field>
+                <field name="residual_signed" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="date_invoice" position="before">
+                    <field name="is_refunds"/> 
+                </field>
+                <field name="state" position="after">
+                    <field name="payed_date"/>
+                </field>
+            </field>
+        </record>
+
+<!-- POPUP CONFERMA ELIMINAZIONE NUMERO INTERNO -->
+    <record id="account_invoice_inherit_anacli5" model="ir.ui.view">
+        <field name="name">Do you really want to cancel this number?</field>
+        <field name="model">account.invoice</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Cancel invoice number?" edit="false" create="false">
+                <div>
+                    <p>The selected invoice/refund has this number: </p>
+                    <h2>
+                        <field name="move_name" readonly="1"/> 
+                        <field name="state" invisible="1"/>
+                    </h2>
+                    <h3>Write down this number and remember to update the counter after having cancelled this number.</h3>
+                    <p>Do you really want to cancel this number?</p>
+                </div>
+                <group col="8">
+                    <group colspan="8" col="8">
+                        <label colspan="6" width="220" string="-----------------------"/>
+                        <footer>
+                            <button special="cancel" string="_Close" icon="fa-thumbs-down" class="oe_highlight"/>
+                            <button  string="Esegui" name="cancel_bill_number" icon="fa-thumbs-up" type="object" class="oe_highlight"/>
+                        </footer>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="account_invoice_inherit_anacli6" model="ir.ui.view">
+        <field name="name">account.invoice.inherit.anacli6</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_invoice_form"/>
+        <field name="arch" type="xml">
+            <field name="payment_date" position="replace">
+                <field name="payment_date"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="account_invoice_inherit_anacli7" model="ir.ui.view">
+        <field name="name">storico.fatture.fornitore</field>
+        <field name="model">fatture.fornitori</field>
+        <field name="field_parent">id</field>
+        <field name="arch" type="xml">
+            <tree string="Fatture Fornitori">
+                 <field name="num_esterno" />
+                 <field name="num_interno" />
+                 <field name="data_reg"/>
+                 <field name="data_scad"/>
+                 <field name="data_fatt" />
+                 <field name="saldo" />
+                 <field name="subtotale" />
+                 <field name="totale"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="base.action_partner_supplier_form" model="ir.actions.act_window">
+        <field name="domain">[('supplier','=',True), '|', ('is_company', '=', True), '&amp;', ('is_company', '=', False), ('parent_id', '=', None)]</field>
+    </record>
+
+    <record id="base.action_partner_customer_form" model="ir.actions.act_window">
+        <field name="domain">[('customer','=',True), '|', ('is_company', '=', True), '&amp;', ('is_company', '=', False), ('parent_id', '=', None)]</field>
+    </record>
+
+    <record id="account_invoice_inherit_invoice_9" model="ir.ui.view">
+        <field name="name">account.invoice.inherit.invoice.9</field>
+        <field name="model">account.fiscal.position</field>
+        <field name="inherit_id" ref="account.view_account_position_form"/>
+        <field name="arch" type="xml">
+            <field name="active" position="after">
+                <field name="inv_journal" domain="[('type', '=', 'sale')]"/>
+            </field>
+        </field>
+    </record>
+
+
+<!-- PUNTI DI MENU NOTE DI CREDITO CLIENTI E FORNITORI E FILTRO DI DEFAULT SU FATTURE -->
+
+    <record id="action_refund_tree1" model="ir.actions.act_window">
+        <field name="name">Customer Refunds</field>
+        <field name="res_model">account.invoice</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+        <field eval="False" name="view_id"/>
+        <field name="domain">[('type','=','out_refund')]</field>
+        <field name="context">{'default_type': 'out_refund', 'type':'out_refund', 'journal_type': 'sale'}</field>
+        <field name="search_view_id" ref="account.view_account_invoice_filter"/>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to create a customer refund.
+          </p>
+        </field>
+    </record>
+
+    <record id="action_refund_view1" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="account.invoice_tree"/>
+        <field name="act_window_id" ref="action_refund_tree1"/>
+    </record>
+
+    <record id="action_refund_view2" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account.invoice_form"/>
+        <field name="act_window_id" ref="action_refund_tree1"/>
+    </record>
+
+    <menuitem action="action_refund_tree1" id="menu_action_refund_tree1" parent="account.menu_finance_receivables" sequence="1"/>
+
+    <record id="action_refund_tree2" model="ir.actions.act_window">
+        <field name="name">Vendor Refunds</field>
+        <field name="res_model">account.invoice</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+        <field eval="False" name="view_id"/>
+        <field name="domain">[('type','=','in_refund')]</field>
+        <field name="context">{'default_type': 'in_refund', 'type': 'in_refund', 'journal_type': 'purchase'}</field>
+        <field name="search_view_id" ref="account.view_account_invoice_filter"/>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to record a new vendor refund.
+          </p>
+        </field>
+    </record>
+
+    <record id="action_refund_supplier_view1" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="account.invoice_supplier_tree"/>
+        <field name="act_window_id" ref="action_refund_tree2"/>
+    </record>
+
+    <record id="action_refund_supplier_view2" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account.invoice_supplier_form"/>
+        <field name="act_window_id" ref="action_refund_tree2"/>
+    </record>
+
+    <menuitem action="action_refund_tree2" id="menu_action_refund_tree2" parent="account.menu_finance_payables" sequence="1"/>
+
+    <record id="view_account_invoice_filter_invoice" model="ir.ui.view">
+        <field name="name">account.invoice.select.invoice</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <filter name="invoices" position="attributes">
+                <attribute name="domain">[('type','in',('out_invoice','in_invoice'))]</attribute>
+            </filter>
+        </field>
+    </record>
+          
+    <record id="account.action_invoice_tree1" model="ir.actions.act_window">
+        <field name="context">{'type':'out_invoice', 'journal_type': 'sale', 'search_default_invoices':True}</field>
+    </record>
+     
+    <record id="account.action_invoice_tree2" model="ir.actions.act_window">
+        <field name="context">{'default_type': 'in_invoice', 'type': 'in_invoice', 'journal_type': 'purchase', 'search_default_invoices':True}</field>
+    </record>
+
+</odoo>

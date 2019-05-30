@@ -1,0 +1,132 @@
+# Translation of Odoo Server.
+# This file contains the missed translation of the base modules
+# * cq_technical_features
+# * stock
+# * delivery
+# * purchase
+# * product
+# * sale_stock
+# * utm
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-02 10:06+0000\n"
+"PO-Revision-Date: 2017-08-02 10:06+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock
+#: model:ir.ui.view,arch_db:stock.view_warehouse_orderpoint_form
+msgid "Quantity Multiple"
+msgstr "Quantità Multipla"
+
+#. module: stock
+#: selection:stock.warehouse.orderpoint,lead_type:0
+msgid "Day(s) to purchase"
+msgstr "Giorni all'acquisto"
+
+#. module: stock
+#: code:addons/stock/models/stock_picking.py:792
+#, python-format
+msgid "Immediate Transfer?"
+msgstr "Trasferimento"
+
+#. module: stock
+#: model:ir.ui.view,arch_db:stock.view_immediate_transfer
+msgid ""
+"You haven't set processed (<i>done</i>) quantities. Click <i>apply</i> and\n"
+"                        Odoo will process all quantities to do."
+msgstr "Non sono state impostate le quantità trasferite (\"Fatto\"). Cliccando <i>applica</i> Odoo processerà tutte le quantità \"Da fare\"."
+
+#. module: stock
+#: model:ir.model.fields,field_description:stock.field_stock_pack_operation_picking_source_location_id
+#: model:ir.model.fields,field_description:stock.field_stock_picking_location_id
+#: model:ir.ui.view,arch_db:stock.view_stock_quant_form
+msgid "Source Location Zone"
+msgstr "Punto di Approvvigionamento"
+
+#. module: stock
+#: model:ir.ui.view,arch_db:stock.view_picking_form
+msgid "Initial Demand"
+msgstr "Domanda Iniziale"
+
+#. module: delivery
+#: model:ir.model.fields,field_description:delivery.field_delivery_carrier_property_account_creditor_price_difference
+msgid "Price Difference Account"
+msgstr "Conto differenze di prezzo"
+
+#. module: purchase
+#: model:ir.model.fields,field_description:purchase.field_product_category_property_account_creditor_price_difference_categ
+#: model:ir.model.fields,field_description:purchase.field_product_product_property_account_creditor_price_difference
+#: model:ir.model.fields,field_description:purchase.field_product_template_property_account_creditor_price_difference
+msgid "Price Difference Account"
+msgstr "Conto differenze di prezzo"
+
+#. module: product
+#: model:ir.model.fields,field_description:product.field_product_product_categ_id
+#: model:ir.model.fields,field_description:product.field_product_template_categ_id
+#: model:ir.ui.view,arch_db:product.product_template_form_view
+msgid "Internal Category"
+msgstr "Categoria Interna"
+
+#. module: sale_stock
+#: code:addons/sale_stock/models/sale_order.py:145
+#, python-format
+msgid "Not enough inventory!"
+msgstr "Non disponibile in magazzino!"
+
+#. module: sale_stock
+#: code:addons/sale_stock/models/sale_order.py:146
+#, python-format
+msgid ""
+"You plan to sell %s %s but you only have %s %s available!\n"
+"The stock on hand is %s %s."
+msgstr "Si è pianificata la vendita di %s %s ma è disponibile solo la quantità %s %s!\nLo stock reale è pari a %s %s. (senza quantità riservate)"
+
+#. module: utm
+#: model:ir.model,name:utm.model_utm_source
+#: model:ir.model.fields,field_description:utm.field_account_invoice_source_id
+#: model:ir.model.fields,field_description:utm.field_crm_lead_source_id
+#: model:ir.model.fields,field_description:utm.field_hr_applicant_source_id
+#: model:ir.model.fields,field_description:utm.field_link_tracker_source_id
+#: model:ir.model.fields,field_description:utm.field_sale_order_source_id
+#: model:ir.model.fields,field_description:utm.field_utm_mixin_source_id
+msgid "Source"
+msgstr "Fonte"
+
+#. module: cq_technical_features
+#: model:res.groups,name:cq_technical_features.group_import_csv
+msgid "Import CSV files"
+msgstr "Importazione di file CSV"
+
+#. module: cq_technical_features
+#: model:res.groups,name:cq_technical_features.group_export_csv
+msgid "Export CSV/Excel files"
+msgstr "Esportazione di file CSV/Excel"
+
+#. module: cq_technical_features
+#: model:ir.ui.menu,name:cq_technical_features.menu_cq_ricalcola_campi_base
+msgid "Recompute Fields Wizard"
+msgstr "Wizard Ricalcolo Campi"
+
+#. module: cq_technical_features
+#: model:ir.model.fields,field_description:cq_technical_features.field_cq_ricalcola_campi_action_id
+msgid "Trigger Action"
+msgstr "Azione Trigger"
+
+#. module: cq_technical_features
+#: model:ir.model.fields,help:cq_technical_features.field_cq_ricalcola_campi_action_id
+msgid ""
+"Action that triggered this wizard instance: "
+"each action should be 1-to-1 bound to a wizard method, so knowing the action "
+"means knowing the method launched through this instance."
+msgstr ""
+"Link all'azione che ha scatenato l'istanza di questa classe: "
+"ogni azione dovrebbe essere collegata 1 a 1 con un metodo di ricalcolo di questa classe "
+"quindi conoscere l'azione permette di risalire al metodo."
